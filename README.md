@@ -1,8 +1,18 @@
-# Purpose
+# Description of Program
 
-This program will retrieve daily the weather information for user-specified areas of the United States.
+This program will retrieve, on a daily basis, basic weather information for user-specified cities of the United States.
 
-# Process
+View the changelog for details on development.
 
-The process will start very simple. I'm learning a good deal of new things, but I will put together all that I've learned into a complete program that users will be able to use.
+# Completed Program Features
 
+- Let user choose the cities to record data from.
+- Store the specified weather in a relational database.
+- Work in the background, without user interference.
+- Retrieve weather data daily, at 12:00PM.
+
+## Possible More Advanced Features
+
+- A fully functional GUI. Basic, but intuitive and robust.
+- Allow user to choose more types of weather data.
+- Let user choose weather data retrieval time and frequency.
