@@ -25,7 +25,6 @@ def connectToDatabase():
     myCursor = db.cursor()
 
     myCursor.execute("show databases;")
-
     myCursor.execute("use database test_weather_database")
 
 
@@ -71,6 +70,8 @@ def main():
         # Secondary? 4113067
 
         printWeatherData(data)
+        print()
+        printWeatherData("Temperature test: " + str(data['main']['temp']))
 
 
 
