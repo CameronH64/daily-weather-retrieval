@@ -4,12 +4,9 @@ import os
 import pprint
 import mysql.connector
 
-########## SETUP ##########
-
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
 
-########## END SETUP ##########
 
 def connectToDatabase():
 
@@ -34,44 +31,40 @@ def printWeatherData(data):
     pprint.pprint(data)
 
 
-def main():
-
-    # connectToDatabase()
-
-    """Main, where the program starts."""
-
-    # Main program start
+def searchMethod():
 
     selection = input("Which would you like to do?\n\n1. City\n2. City ID\n\n")
 
-    if selection == 1:
+    if selection == "1":        # Selection has to be a string because of the input!
 
         cityName = input("Enter a city name: ")
 
         url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
         result = requests.get(url)
-
-        # Store that URL into a printable variable
         data = result.json()
 
-        printWeatherData(data)
+        return data
 
-
-    else:
+    elif selection == "2":
         cityID = input("Enter a city ID: ")
 
-        url2 = f"http://api.openweathermap.org/data/2.5/weather?id={cityID}&appid={os.getenv('API_KEY')}&units=imperial"
-        result = requests.get(url2)
-
-        # Store that URL into a printable variable
+        url = f"http://api.openweathermap.org/data/2.5/weather?id={cityID}&appid={os.getenv('API_KEY')}&units=imperial"
+        result = requests.get(url)
         data = result.json()
 
         # Original: 4626286
         # Secondary? 4113067
 
-        printWeatherData(data)
-        print()
-        printWeatherData("Temperature test: " + str(data['main']['temp']))
+        return data
+
+
+
+def main():
+
+    # connectToDatabase()
+
+    data = searchMethod()
+    printWeatherData(data)
 
 
 
