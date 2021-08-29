@@ -52,8 +52,8 @@ def searchMethod():
         result = requests.get(url)
         data = result.json()
 
-        # Original: 4626286
-        # Secondary? 4113067
+        # Greenbrier, AR:           4626286
+        # Also Greenbrier, AR?      4113067
 
         return data
 
@@ -63,8 +63,10 @@ def main():
 
     # connectToDatabase()
 
-    data = searchMethod()
-    printWeatherData(data)
+    # For loop is for city ID testing. Apparently, both numbers are "Greenbrier."
+    for i in range(1, 3):
+        data = searchMethod()
+        printWeatherData(data)
 
 
 
