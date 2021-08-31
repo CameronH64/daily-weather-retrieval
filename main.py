@@ -8,7 +8,7 @@ import mysql.connector
 load_dotenv()
 
 
-def connectAndConfigureDatabase():
+def connectToDatabase():
 
     # (test_weather_database is hardcoded).
 
@@ -25,11 +25,14 @@ def connectAndConfigureDatabase():
 
     # Code to determine if database already exists here.
 
-    myCursor = db.cursor()          # Create a cursor object; this lets us use SQL commands.
+    # myCursor = db.cursor()          # Create a cursor object; this lets us use SQL commands.
+    #
+    # myCursor.execute("show databases;")
+    # myCursor.execute("use database test_weather_database")
 
-    myCursor.execute("show databases;")
-    myCursor.execute("use database test_weather_database")
-
+    # Test if an insert command works.
+    # BIG IDEA! Design and implement the database FIRST!
+    # THEN, have insert and delete commands from this python script!
 
 
 
