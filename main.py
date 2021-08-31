@@ -8,22 +8,33 @@ import mysql.connector
 load_dotenv()
 
 
-def connectToDatabase():
+def connectAndConfigureDatabase():
+
+    # (test_weather_database is hardcoded).
 
     # MySQL connector setup
     db = mysql.connector.connect(
 
         host="localhost", user="root",
         password=os.getenv("ROOT"),
+
+        # Can I check database here? Do some testing...
         database="test_weather_database"
 
     )
 
-    myCursor = db.cursor()
+    # Code to determine if database already exists here.
+
+    myCursor = db.cursor()          # Create a cursor object; this lets us use SQL commands.
 
     myCursor.execute("show databases;")
     myCursor.execute("use database test_weather_database")
 
+
+
+
+
+# Store a city's weather data
 
 def printWeatherData(data):
 
@@ -63,10 +74,9 @@ def main():
 
     # connectToDatabase()
 
-    # For loop is for city ID testing. Apparently, both numbers are "Greenbrier."
-    for i in range(1, 3):
-        data = searchMethod()
-        printWeatherData(data)
+    # Loop to ask user what cities to collect weather data for.
+
+    print("Hey, listen!")       # Just so Python doesn't get mad at me.
 
 
 
