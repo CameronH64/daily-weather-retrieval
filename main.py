@@ -78,8 +78,10 @@ def main():
     # connectToDatabase()
 
     # Loop to ask user what cities to collect weather data for.
+    data = searchMethod()
+    printWeatherData(data[main.temp])
 
-    print("Hey, listen!")       # Just so Python doesn't get mad at me.
+    # print("Hey, listen!")       # Just so Python doesn't get mad at me.
 
 
 
