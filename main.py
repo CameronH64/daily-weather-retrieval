@@ -79,7 +79,9 @@ def main():
 
     # Loop to ask user what cities to collect weather data for.
     data = searchMethod()
-    printWeatherData(data[main.temp])
+    printWeatherData("Main temperature: " + str(data['main']['temp']) + " degrees fahrenheit.")
+    printWeatherData("Minimum temperature " + str(data['main']['temp_min']) + " degrees fahrenheit.")
+    printWeatherData("Maximum temperature " + str(data['main']['temp_max']) + " degrees fahrenheit.")
 
     # print("Hey, listen!")       # Just so Python doesn't get mad at me.
 
