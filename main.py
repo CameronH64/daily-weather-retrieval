@@ -1,9 +1,10 @@
 import requests             # Used to call the HTTP API.
 from dotenv import load_dotenv      # Used to store the API key
 import os                   # Used to access environmental variables, and my API key.
-import pprint               # Simply prints out .json output in a much neater format.
+# import pprint               # Simply prints out .json output in a much neater format.
 import mysql.connector      # Used to run SQL commands in Python
 # Use Tkinter or Kivy as a quick and dirty GUI?
+from tkinter import *
 
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
@@ -34,8 +35,6 @@ def connectToDatabase():
     # Test if an insert command works.
     # BIG IDEA! Design and implement the database FIRST!
     # THEN, have insert and delete commands from this python script!
-
-
 
 
 # Store a city's weather data
@@ -113,11 +112,19 @@ def searchByCityCode():
         return data
 
 
+
 # Greenbrier, AR:           4626286
 # Also Greenbrier, AR?      4113067
 
 
 ###################### CODE STARTS HERE ######################
+
+root = Tk()
+
+myLabel1 = Label(root, text="Hey, listen!")
+myLabel1.pack()
+
+root.mainloop()
 
 print("Pick a weather search option: ")
 print("1. Search by city.")
@@ -129,7 +136,7 @@ print("4. Search by city code (according to OpenWeatherMap's code list).")
 choice = input()
 
 if choice == "1":
-    searchByCity()
+    weatherData = searchByCity()
 
 
 elif choice == "2":
@@ -145,5 +152,3 @@ elif choice == "4":
 
 
 print("Program has ended.")
-
-
