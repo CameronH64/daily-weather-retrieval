@@ -120,16 +120,11 @@ def searchByCityCode():
 
 ###################### CODE STARTS HERE ######################
 
-# GUI code here
+# GUI setup code here
 
 root = Tk()
 
-myLabel1 = Label(root, text="Hey, listen!")
-myLabel1.pack()
-
-root.mainloop()
-
-#
+# Backend code here
 
 print("Pick a weather search option: ")
 print("1. Search by city.")
@@ -143,6 +138,8 @@ choice = input()
 if choice == "1":
     weatherData = searchByCity()
 
+    minimumTemperature = Label(root, text="Minimum Temperature: " + str(weatherData['main']['temp_min']) + " degrees fahrenheit")
+    minimumTemperature.grid(row=0, column=0)        # Using Tkinter's grid system.
 
 elif choice == "2":
     searchByState()
@@ -157,6 +154,9 @@ elif choice == "4":
 
 
 print("Program has ended.")
+
+root.mainloop()
+
 
 
 # Tkinter documentation: https://docs.python.org/3/library/tk.html
