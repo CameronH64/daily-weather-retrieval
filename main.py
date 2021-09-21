@@ -5,6 +5,7 @@ import os                   # Used to access environmental variables, and my API
 import mysql.connector      # Used to run SQL commands in Python
 # Use Tkinter or Kivy as a quick and dirty GUI?
 from tkinter import *
+from PIL import ImageTk, Image
 
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
@@ -119,12 +120,16 @@ def searchByCityCode():
 
 ###################### CODE STARTS HERE ######################
 
+# GUI code here
+
 root = Tk()
 
 myLabel1 = Label(root, text="Hey, listen!")
 myLabel1.pack()
 
 root.mainloop()
+
+#
 
 print("Pick a weather search option: ")
 print("1. Search by city.")
@@ -152,3 +157,19 @@ elif choice == "4":
 
 
 print("Program has ended.")
+
+
+# Tkinter documentation: https://docs.python.org/3/library/tk.html
+
+# Basically, all Tkinter is:
+
+# from tkinter import *
+
+# root = Tk()
+
+# myLabel = Label(root, text="Hey, listen!")
+
+# myLabel.pack()
+
+# root.mainloop()
+
