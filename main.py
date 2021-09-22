@@ -3,7 +3,6 @@ from dotenv import load_dotenv      # Used to store the API key
 import os                   # Used to access environmental variables, and my API key.
 # import pprint               # Simply prints out .json output in a much neater format.
 import mysql.connector      # Used to run SQL commands in Python
-# Use Tkinter or Kivy as a quick and dirty GUI?
 from tkinter import *
 from PIL import ImageTk, Image
 
@@ -38,7 +37,7 @@ def connectToDatabase():
     # THEN, have insert and delete commands from this python script!
 
 
-# Store a city's weather data
+# OpenWeatherMap's functions
 
 def searchByCity():
 
@@ -118,7 +117,7 @@ def searchByCityCode():
 # Also Greenbrier, AR?      4113067
 
 
-###################### CODE STARTS HERE ######################
+#====================== CODE STARTS HERE ============================
 
 # GUI setup code here
 
@@ -135,32 +134,25 @@ root = Tk()
 #
 # choice = input()
 
-fieldEntry = Entry(root, width=50)
-fieldEntry.grid(row=0, column=0)
-
-def confirmEntry():
-    choice = Label(root, text=fieldEntry.get())
-    choice.grid(row=0, column=0)
-
-if choice == "1":
-    weatherData = searchByCity()
-
-    minimumTemperature = Label(root, text="Minimum Temperature: " + str(weatherData['main']['temp_min']) + " degrees fahrenheit")
-    minimumTemperature.grid(row=0, column=0)        # Using Tkinter's grid system.
-
-elif choice == "2":
-    searchByState()
+def searchButtonClicked():
+    response = fieldEntry.get()
+    return response
 
 
-elif choice == "3":
-    searchByCountry()
+question = Label(root, text="Enter a city: ")
+question.grid(row=0, column=0)
+
+fieldEntry = Entry(root, width=40)
+fieldEntry.grid(row=1, column=0)
+
+submissionButton = Button(root, text="Search", command=lambda: searchButtonClicked())
+submissionButton.grid(row=1, column=1)
+
+answer = searchButtonClicked()
+print(answer + "Hey, listen!")
 
 
-elif choice == "4":
-    searchByCityCode()
-
-
-print("Program has ended.")
+# print("Program has ended.")
 
 root.mainloop()
 
