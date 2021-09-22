@@ -126,14 +126,21 @@ root = Tk()
 
 # Backend code here
 
-print("Pick a weather search option: ")
-print("1. Search by city.")
-print("2. Search by state.")
-print("3. Search by country.")
-print("4. Search by city code (according to OpenWeatherMap's code list).")
+# print("Pick a weather search option: ")
+# print("1. Search by city.")
+# print("2. Search by state.")
+# print("3. Search by country.")
+# print("4. Search by city code (according to OpenWeatherMap's code list).")
+#
+#
+# choice = input()
 
+fieldEntry = Entry(root, width=50)
+fieldEntry.grid(row=0, column=0)
 
-choice = input()
+def confirmEntry():
+    choice = Label(root, text=fieldEntry.get())
+    choice.grid(row=0, column=0)
 
 if choice == "1":
     weatherData = searchByCity()
@@ -164,12 +171,8 @@ root.mainloop()
 # Basically, all Tkinter is:
 
 # from tkinter import *
-
 # root = Tk()
-
 # myLabel = Label(root, text="Hey, listen!")
-
-# myLabel.pack()
-
+# myLabel.pack()        # Can also use grid system.
 # root.mainloop()
 
