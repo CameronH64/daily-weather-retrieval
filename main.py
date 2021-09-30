@@ -113,14 +113,13 @@ def searchByCityCode():
 
 
 
-# Greenbrier, AR:           4626286
-# Also Greenbrier, AR?      4113067
+# Greenbrier, TN:        4626286
+# Greenbrier, AR:        4113067
 
 
 #====================== CODE STARTS HERE ============================
 
 # GUI setup code here
-
 root = Tk()
 
 # Backend code here
@@ -138,21 +137,22 @@ def searchButtonClicked():
     response = fieldEntry.get()
     return response
 
-
-question = Label(root, text="Enter a city: ")
+# Prompt for search parameters
+question = Label(root, text="Enter a your search parameters: ")
 question.grid(row=0, column=0)
 
+# Make the textbox to enter the search parameters
 fieldEntry = Entry(root, width=40)
 fieldEntry.grid(row=1, column=0)
 
+# Create submit button
 submissionButton = Button(root, text="Search", command=lambda: searchButtonClicked())
 submissionButton.grid(row=1, column=1)
 
+# Create the search button to act upon parameters
 answer = searchButtonClicked()
 
-
-# print("Program has ended.")
-
+# Activate the mainloop window
 root.mainloop()
 
 
