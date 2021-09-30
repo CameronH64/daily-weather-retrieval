@@ -1,10 +1,11 @@
 import requests             # Used to call the HTTP API.
 from dotenv import load_dotenv      # Used to store the API key
 import os                   # Used to access environmental variables, and my API key.
-# import pprint               # Simply prints out .json output in a much neater format.
+import pprint               # Simply prints out .json output in a much neater format.
 import mysql.connector      # Used to run SQL commands in Python
 from tkinter import *
 from PIL import ImageTk, Image
+import datetime
 
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
@@ -121,49 +122,54 @@ def searchByCityCode():
 
 # GUI setup code here
 root = Tk()
+root.geometry("640x480")
 
 # Backend code here
 
-# print("Pick a weather search option: ")
-# print("1. Search by city.")
-# print("2. Search by state.")
-# print("3. Search by country.")
-# print("4. Search by city code (according to OpenWeatherMap's code list).")
-#
-#
-# choice = input()
-
 def searchButtonClicked():
-    response = fieldEntry.get()
+    response = searchEntry.get()
     return response
 
-# Prompt for search parameters
-question = Label(root, text="Enter a your search parameters: ")
+cityName = "greenbrier"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
+call = requests.get(url)
+result = call.json()
+
+
+# LABEL for search parameters
+question = Label(root, text="Enter your search parameters: ")
 question.grid(row=0, column=0)
 
-# Make the textbox to enter the search parameters
-fieldEntry = Entry(root, width=40)
-fieldEntry.grid(row=1, column=0)
+# ENTRY textbox for search parameters
+searchEntry = Entry(root, width=40)
+searchEntry.grid(row=1, column=0)
 
-# Create submit button
+# BUTTON for submit
 submissionButton = Button(root, text="Search", command=lambda: searchButtonClicked())
 submissionButton.grid(row=1, column=1)
 
-# Create the search button to act upon parameters
-answer = searchButtonClicked()
+# LABEL widget for API call return
+output = Label(root, wraplength=500, text=result)
+output.grid(row=2, column=0)
+
+pprint.pprint(result)
+
+
 
 # Activate the mainloop window
 root.mainloop()
 
-
-
-# Tkinter documentation: https://docs.python.org/3/library/tk.html
 
 # Basically, all Tkinter is:
 
 # from tkinter import *
 # root = Tk()
 # myLabel = Label(root, text="Hey, listen!")
-# myLabel.pack()        # Can also use grid system.
+# myLabel.grid()        # Could also use the simpler pack system.
 # root.mainloop()
 
+# e.get() will return the contents in the text field.
+
+# Code to convert UNIX time to actual time.
+# timestamp = datetime.datetime.fromtimestamp(1500000000)
+# print(timestamp.strftime('%Y-%m-%d %H:%M:%S'))
