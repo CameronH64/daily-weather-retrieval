@@ -149,7 +149,6 @@ submissionButton = Button(root, text="Search", command=lambda: searchButtonClick
 submissionButton.grid(row=1, column=1)
 
 answer = searchButtonClicked()
-print(answer + "Hey, listen!")
 
 
 # print("Program has ended.")
