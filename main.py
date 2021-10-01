@@ -26,115 +26,36 @@ def connectToDatabase():
 
     )
 
-    # Code to determine if database already exists here.
+def OWMCall(choice):
 
-    # myCursor = db.cursor()          # Create a cursor object; this lets us use SQL commands.
-    #
-    # myCursor.execute("show databases;")
-    # myCursor.execute("use database test_weather_database")
-
-    # Test if an insert command works.
-    # BIG IDEA! Design and implement the database FIRST!
-    # THEN, have insert and delete commands from this python script!
-
-
-# OpenWeatherMap's functions
-
-def searchByCity():
-
-    cityName = input("Enter a city to find its weather: ")
-
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
-    result = requests.get(url)
-    data = result.json()
-
-    return data
-
-def searchByState():
-
-    stateName = input("Enter a state to find its weather: ")
-
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={stateName}&appid={os.getenv('API_KEY')}&units=imperial"
-    result = requests.get(url)
-    data = result.json()
-
-    return data
-
-def searchByCountry():
-
-    selection = input("Which would you like to do?\n\n1. City\n2. City ID\n\n")
-
-    if selection == "1":        # Selection has to be a string because of the input!
-
-        cityName = input("Enter a city name: ")
+    if choice == "City":
+        cityName = input("Enter a city to find its weather: ")
 
         url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
         result = requests.get(url)
         data = result.json()
 
-        return data
+    elif choice == "City ID":
+        print("Hey, listen! City ID!")
 
-    elif selection == "2":
-        cityID = input("Enter a city ID: ")
+    elif choice == "Coordinates":
+        print("Hey, listen! Coordinates!")
 
-        url = f"http://api.openweathermap.org/data/2.5/weather?id={cityID}&appid={os.getenv('API_KEY')}&units=imperial"
-        result = requests.get(url)
-        data = result.json()
-
-        # Greenbrier, AR:           4626286
-        # Also Greenbrier, AR?      4113067
-
-        return data
-
-def searchByCityCode():
-
-    selection = input("Which would you like to do?\n\n1. City\n2. City ID\n\n")
-
-    if selection == "1":        # Selection has to be a string because of the input!
-
-        cityName = input("Enter a city name: ")
-
-        url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
-        result = requests.get(url)
-        data = result.json()
-
-        return data
-
-    elif selection == "2":
-        cityID = input("Enter a city ID: ")
-
-        url = f"http://api.openweathermap.org/data/2.5/weather?id={cityID}&appid={os.getenv('API_KEY')}&units=imperial"
-        result = requests.get(url)
-        data = result.json()
-
-        # Greenbrier, AR:           4626286
-        # Also Greenbrier, AR?      4113067
-
-        return data
+    elif choice == "ZIP Code":
+        print("Hey, listen! ZIP Code!")
 
 
-
+# Testing City ID's
 # Greenbrier, TN:        4626286
 # Greenbrier, AR:        4113067
 
-
-#====================== CODE STARTS HERE ============================
-
-# GUI setup code here
 root = Tk()
-root.geometry("640x480")
-
-# Backend code here
+root.geometry("800x400")
 
 def searchButtonClicked():
-    response = searchEntry.get()
-    return response
+    return searchEntry.get()
 
-cityName = "greenbrier"
-url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
-call = requests.get(url)
-result = call.json()
-
+######################### CREATE ELEMENTS FOR GUI #########################
 
 # LABEL for search parameters
 question = Label(root, text="Enter your search parameters: ")
@@ -149,15 +70,16 @@ submissionButton = Button(root, text="Search", command=lambda: searchButtonClick
 submissionButton.grid(row=1, column=1)
 
 # LABEL widget for API call return
-output = Label(root, wraplength=500, text=result)
+output = Label(root, wraplength=500)
 output.grid(row=2, column=0)
 
-pprint.pprint(result)
+#======================== END CREATE ELEMENTS FOR GUI ============
 
-
+OWMCall("City ID")
 
 # Activate the mainloop window
 root.mainloop()
+
 
 
 # Basically, all Tkinter is:
