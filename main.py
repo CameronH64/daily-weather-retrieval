@@ -26,14 +26,26 @@ def connectToDatabase():
 
     )
 
+# Plain OpenWeatherMap API calls
+# https:/api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
+OWMCity = "http:/api.openweathermap.org/data/2.5/weather?q={}&appid={}"
+# https:/api.openweathermap.org/data/2.5/weather?id={city id}&appid={API key}
+OWMCityID = "http:/api.openweathermap.org/data/2.5/weather?id={}&appid={}"
+# https:/api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+OWMCoordinates = "http:/api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}"
+# https:/api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
+OWMZipCode = "http:/api.openweathermap.org/data/2.5/weather?zip={},{}&appid={}"
+
 def OWMCall(choice):
 
     if choice == "City":
         cityName = input("Enter a city to find its weather: ")
 
-        url = f"http://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={os.getenv('API_KEY')}&units=imperial"
+        url = OWMCity.format(cityName, os.getenv("API_KEY"))
         result = requests.get(url)
         data = result.json()
+
+        return data
 
     elif choice == "City ID":
         print("Hey, listen! City ID!")
@@ -43,7 +55,6 @@ def OWMCall(choice):
 
     elif choice == "ZIP Code":
         print("Hey, listen! ZIP Code!")
-
 
 # Testing City ID's
 # Greenbrier, TN:        4626286
@@ -75,12 +86,15 @@ output.grid(row=2, column=0)
 
 #======================== END CREATE ELEMENTS FOR GUI ============
 
-OWMCall("City ID")
+# returnedData = OWMCall("City")
+# pprint.pprint(returnedData)
 
 # Activate the mainloop window
 root.mainloop()
 
-
+APICall = requests.get("http:/api.openweathermap.org/data/2.5/weather?q=conway&appid=3f50437fe51d585ab8a11be93c75efc3")
+data = APICall.json()
+pprint.pprint(data)
 
 # Basically, all Tkinter is:
 
