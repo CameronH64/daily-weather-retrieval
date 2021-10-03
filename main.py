@@ -19,6 +19,7 @@ Outline:
 
 
 """
+import time
 
 import requests             # Used to call the HTTP API.
 from dotenv import load_dotenv      # Used to store the API key
@@ -35,6 +36,9 @@ load_dotenv()
 # Setup the Tkinter window.
 root = Tk()
 root.geometry("480x300")
+root.resizable(False, False)
+root.title("Daily Weather Retrieval Tool")
+
 
 # Plain OpenWeatherMap API calls
 # https:/api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
@@ -110,6 +114,13 @@ submissionButton.grid(row=1, column=1)
 
 # RADIO buttons, search choices
 
+r = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
+
+# Will need to have "variable" and "value".
+Radiobutton(root, text="City",                      variable=r, value=1).grid(row=2, column=1)      # (Offset so it's easier to see).
+Radiobutton(root, text="City ID",                   variable=r, value=2).grid(row=3, column=1)
+Radiobutton(root, text="Geographic\nCoordinates",   variable=r, value=3).grid(row=4, column=1)
+Radiobutton(root, text="ZIP Code",                  variable=r, value=4).grid(row=5, column=1)
 
 # LABEL, units choice
 
