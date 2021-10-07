@@ -106,6 +106,8 @@ searchEntry.grid(row=1, column=0)
 output = Label(root, text="Weather API call goes here.")
 output.grid(row=2, column=0)
 
+# Use a scrollbar?
+
 # Weather details to display:
 
 # main.temp
