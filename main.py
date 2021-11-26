@@ -13,6 +13,7 @@ Outline:
     Load dotenv for API key
     Setup the Tkinter window
     Python functions
+
     Create GUI elements (Label, Entry, etc.)
     Run the Tkinter mainloop.
     Reference materials
@@ -40,7 +41,7 @@ root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
 
 
-# Plain OpenWeatherMap API calls
+# Plain OpenWeatherMap API calls (just strings)
 # https:/api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
 OWMCity = "http:/api.openweathermap.org/data/2.5/weather?q={}&appid={}"
 # https:/api.openweathermap.org/data/2.5/weather?id={city id}&appid={API key}
@@ -95,16 +96,54 @@ def searchButtonClicked():
     return searchEntry.get()
 
 
+# ================================================== MAIN ==================================================
+
 # ================= CREATE ELEMENTS FOR GUI =================
 
 # ENTRY box, search box
 searchEntry = Entry(root, width=30)
 searchEntry.grid(row=1, column=0)
 
-
 # LABEL widget for API call return
 output = Label(root, text="Weather API call goes here.")
 output.grid(row=2, column=0)
+
+# BUTTON, submission button
+submissionButton = Button(root, text="Search", command=lambda: searchButtonClicked())
+submissionButton.grid(row=1, column=1)
+
+# RADIO buttons, search choices
+searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
+searchChoices.set(1)            # Set the default value of the group of radio buttons.
+
+# Will need to have "variable" and "value".
+Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)      # (Offset so it's easier to see).
+Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
+Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
+Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
+
+# LABEL, temperature units choice
+temperatureUnits = Label(root, text="Temperature Units:")
+temperatureUnits.grid(row=6, column=1)
+
+# RADIO buttons, temperature choice
+temperatureUnits = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
+temperatureUnits.set(1)            # Set the default value of the group of radio buttons.
+
+Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
+Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
+
+# BUTTON, save to database (will use mysql-connector-python)
+saveButton = Button(root, text="Save to\nlocal database", command=lambda: searchButtonClicked())
+saveButton.grid(row=9, column=1)
+
+# ===================== END CREATE ELEMENTS FOR GUI =====================
+
+
+# Activate Tkinter's mainloop window
+root.mainloop()
+
+
 
 # Use a scrollbar?
 
@@ -132,38 +171,7 @@ output.grid(row=2, column=0)
 # id
 # name
 
-# BUTTON, submission button
-submissionButton = Button(root, text="Search", command=lambda: searchButtonClicked())
-submissionButton.grid(row=1, column=1)
 
-# RADIO buttons, search choices
-
-searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-searchChoices.set(1)            # Set the default value of the group of radio buttons.
-
-# Will need to have "variable" and "value".
-Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)      # (Offset so it's easier to see).
-Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
-Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
-Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
-
-# LABEL, temperature units choice
-temperatureUnits = Label(root, text="Temperature Units:")
-temperatureUnits.grid(row=6, column=1)
-
-# RADIO buttons, temperature choice
-temperatureUnits = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-temperatureUnits.set(1)            # Set the default value of the group of radio buttons.
-
-Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
-Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
-
-# BUTTON, save to database (will use mysql-connector-python)
-saveButton = Button(root, text="Save to\nlocal database", command=lambda: searchButtonClicked())
-saveButton.grid(row=9, column=1)
-
-# Activate Tkinter's mainloop window
-root.mainloop()
 
 
 # ================= REFERENCE MATERIALS =================
