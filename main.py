@@ -41,15 +41,16 @@ root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
 
 
+
 # Plain OpenWeatherMap API calls (just strings)
 # https:/api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
-OWMCity = "http:/api.openweathermap.org/data/2.5/weather?q={}&appid={}"
+# OWMCity = "http:/api.openweathermap.org/data/2.5/weather?q={}&appid={}"
 # https:/api.openweathermap.org/data/2.5/weather?id={city id}&appid={API key}
-OWMCityID = "http:/api.openweathermap.org/data/2.5/weather?id={}&appid={}"
+# OWMCityID = "http:/api.openweathermap.org/data/2.5/weather?id={}&appid={}"
 # https:/api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-OWMCoordinates = "http:/api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}"
+# OWMCoordinates = "http:/api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}"
 # https:/api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
-OWMZipCode = "http:/api.openweathermap.org/data/2.5/weather?zip={},{}&appid={}"
+# OWMZipCode = "http:/api.openweathermap.org/data/2.5/weather?zip={},{}&appid={}"
 
 # Ignoring this for now; getting OWM stuff down first.
 def connectToDatabase():
@@ -59,34 +60,31 @@ def connectToDatabase():
     # MySQL connector setup
     db = mysql.connector.connect(
 
-        host="localhost", user="root",
-        password=os.getenv("ROOT"),
+        host="localhost",
+        user="root",
+        password=os.getenv("rootPassword"),
 
         # Can I check database here? Do some testing...
         database="test_weather_database"
 
     )
 
+    # Create the cursor for executing SQL commands.
+    cursor = db.cursor()
+
+
 # Will call the OWM API, and return the API call weather data
-def OWMCall(choice):
+def APICall():
 
-    if choice == "City":
-        cityName = input("Enter a city to find its weather: ")
+    cityName = input("Enter a city: ")
+    callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(cityName, os.getenv("apiKey"))
+    print(callString)
 
-        url = OWMCity.format(cityName, os.getenv("API_KEY"))
-        result = requests.get(url)
-        data = result.json()
+    requestReturn = requests.get(callString)
+    data = requestReturn.json()
 
-        return data
+    pprint.pprint(data)
 
-    elif choice == "City ID":
-        print("Hey, listen! City ID!")
-
-    elif choice == "Coordinates":
-        print("Hey, listen! Coordinates!")
-
-    elif choice == "ZIP Code":
-        print("Hey, listen! ZIP Code!")
 
 # Testing City ID's
 # Greenbrier, TN:        4626286
@@ -95,8 +93,6 @@ def OWMCall(choice):
 def searchButtonClicked():
     return searchEntry.get()
 
-
-# ================================================== MAIN ==================================================
 
 # ================= CREATE ELEMENTS FOR GUI =================
 
@@ -141,35 +137,9 @@ saveButton.grid(row=9, column=1)
 
 
 # Activate Tkinter's mainloop window
-root.mainloop()
+# root.mainloop()
 
-
-
-# Use a scrollbar?
-
-# Weather details to display:
-
-# main.temp
-# main.feels_like
-# main.humidity
-# main.temp_min
-# main.temp_max
-
-# wind.speed
-# wind.deg
-# clouds.all
-
-# rain.1h
-# rain.3h
-
-# snow.1h
-# snow.3h
-
-# sys.country
-# sys.sunrise
-# sys.sunset
-# id
-# name
+APICall()
 
 
 
