@@ -61,7 +61,6 @@ def connectToDatabase():
 	cursor = db.cursor()
 
 
-# Will call the OWM API, and return the API call weather data
 def APICall():
 
 	cityName = input("Enter a city: ")
@@ -71,11 +70,18 @@ def APICall():
 	requestReturn = requests.get(callString)
 	data = requestReturn.json()
 
-	# pprint.pprint(data)
-
 	print(data['main']['temp'])
 
 
+def askCity():
+	return input("Enter a city: ")
+
+
+def testCall(cityName):
+
+
+
+	return 0
 
 
 # Testing City ID's
@@ -83,56 +89,71 @@ def APICall():
 # Greenbrier, AR:        4113067
 
 def searchButtonClicked():
-	return searchEntry.get()
+	cityName = searchEntry.get()
+
+	# Do Open Weather Map API call.
+	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=imperial".format(cityName, os.getenv("APIKey"))
+	requestReturn = requests.get(callString)
+	data = requestReturn.json()
+
+	# For testing purposes.
+	pprint.pprint(data)
+
+
+def saveToDatabase():
+	print()
+	# Have cursor statements in here
+	# data['main']['temp'] and assignment and stuff like that.
 
 
 # ================= CREATE ELEMENTS FOR GUI =================
 
-# ENTRY box, search box
+# Search box
 searchEntry = Entry(root, width=30)
 searchEntry.grid(row=1, column=0)
 
-# LABEL widget for API call return
+# API call return box
 output = Label(root, text="Weather API call goes here.")
 output.grid(row=2, column=0)
 
-# BUTTON, submission button
-submissionButton = Button(root, text="Search", command=lambda: searchButtonClicked())
-submissionButton.grid(row=1, column=1)
+# Search button
+searchButton = Button(root, text="Search", command=lambda: searchButtonClicked())
+searchButton.grid(row=1, column=1)
 
-# RADIO buttons, search choices
+# Search radio buttons
 searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
 searchChoices.set(1)            # Set the default value of the group of radio buttons.
 
-# Will need to have "variable" and "value".
 Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)      # (Offset so it's easier to see).
 Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
 Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
 Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
 
-# LABEL, temperature units choice
+
+# Temperature units choice label
 temperatureUnits = Label(root, text="Temperature Units:")
 temperatureUnits.grid(row=6, column=1)
 
-# RADIO buttons, temperature choice
+
+# Temperature radio buttons
+
 temperatureUnits = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
 temperatureUnits.set(1)            # Set the default value of the group of radio buttons.
 
 Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
 Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
 
-# BUTTON, save to database (will use mysql-connector-python)
-saveButton = Button(root, text="Save to\nlocal database", command=lambda: searchButtonClicked())
+
+# Save to database button
+saveButton = Button(root, text="Save to\nlocal database", command=lambda: saveToDatabase())
 saveButton.grid(row=9, column=1)
 
 # ===================== END CREATE ELEMENTS FOR GUI =====================
 
 
-# Activate Tkinter's mainloop window
-# root.mainloop()
+root.mainloop()
 
-APICall()
-
+connectToDatabase()
 
 
 
