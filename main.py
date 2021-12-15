@@ -9,14 +9,14 @@ and store it in a local MySQL database.
 
 Outline:
 
-    Import statements
-    Load dotenv for API key
-    Setup the Tkinter window
-    Python functions
+	Import statements
+	Load dotenv for API key
+	Setup the Tkinter window
+	Python functions
 
-    Create GUI elements (Label, Entry, etc.)
-    Run the Tkinter mainloop.
-    Reference materials
+	Create GUI elements (Label, Entry, etc.)
+	Run the Tkinter mainloop.
+	Reference materials
 
 
 """
@@ -41,49 +41,41 @@ root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
 
 
-
-# Plain OpenWeatherMap API calls (just strings)
-# https:/api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
-# OWMCity = "http:/api.openweathermap.org/data/2.5/weather?q={}&appid={}"
-# https:/api.openweathermap.org/data/2.5/weather?id={city id}&appid={API key}
-# OWMCityID = "http:/api.openweathermap.org/data/2.5/weather?id={}&appid={}"
-# https:/api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-# OWMCoordinates = "http:/api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}"
-# https:/api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
-# OWMZipCode = "http:/api.openweathermap.org/data/2.5/weather?zip={},{}&appid={}"
-
-# Ignoring this for now; getting OWM stuff down first.
 def connectToDatabase():
 
-    # (test_weather_database is hardcoded).
+	# (test_weather_database is hardcoded).
 
-    # MySQL connector setup
-    db = mysql.connector.connect(
+	# MySQL connector setup
+	db = mysql.connector.connect(
 
-        host="localhost",
-        user="root",
-        password=os.getenv("rootPassword"),
+		host="localhost",
+		user="root",
+		password=os.getenv("rootPassword"),
 
-        # Can I check database here? Do some testing...
-        database="test_weather_database"
+		# Can I check database here? Do testing later...
+		database="weather_database"
 
-    )
+	)
 
-    # Create the cursor for executing SQL commands.
-    cursor = db.cursor()
+	# Create the cursor for executing SQL commands.
+	cursor = db.cursor()
 
 
 # Will call the OWM API, and return the API call weather data
 def APICall():
 
-    cityName = input("Enter a city: ")
-    callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(cityName, os.getenv("apiKey"))
-    print(callString)
+	cityName = input("Enter a city: ")
 
-    requestReturn = requests.get(callString)
-    data = requestReturn.json()
+	# Do Open Weather Map API call.
+	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=imperial".format(cityName, os.getenv("APIKey"))
+	requestReturn = requests.get(callString)
+	data = requestReturn.json()
 
-    pprint.pprint(data)
+	# pprint.pprint(data)
+
+	print(data['main']['temp'])
+
+
 
 
 # Testing City ID's
@@ -91,7 +83,7 @@ def APICall():
 # Greenbrier, AR:        4113067
 
 def searchButtonClicked():
-    return searchEntry.get()
+	return searchEntry.get()
 
 
 # ================= CREATE ELEMENTS FOR GUI =================
