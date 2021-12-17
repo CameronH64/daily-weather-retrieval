@@ -6,22 +6,9 @@ Project Description:
 This program will grab current weather information
 and store it in a local MySQL database.
 
-
-Outline:
-
-	Import statements
-	Load dotenv for API key
-	Setup the Tkinter window
-	Python functions
-
-	Create GUI elements (Label, Entry, etc.)
-	Run the Tkinter mainloop.
-	Reference materials
-
-
 """
-import time
 
+import time
 import requests             # Used to call the HTTP API.
 from dotenv import load_dotenv      # Used to store the API key
 import os                   # Used to access environmental variables, and my API key.
@@ -86,7 +73,7 @@ def testCall(cityName):
 # Greenbrier, TN:        4626286
 # Greenbrier, AR:        4113067
 
-def searchButtonClicked():
+def saveButtonClicked():
 	cityName = searchEntry.get()
 
 	# Do Open Weather Map API call.
@@ -94,17 +81,78 @@ def searchButtonClicked():
 	requestReturn = requests.get(callString)
 	data = requestReturn.json()
 
+
+	# I now have data, which holds the information I need.
+	# Put in a large try catch?
+
+	# clouds	varchar(10),
+	try:
+		clouds = data['snow']['snow.1h']
+	except Exception:
+		print("Error: Hasn't snowed yet.")
+	# humidity	varchar(20),
+
+	# temp_min	float,
+
+	# temp_max	float,
+
+	# main_temp	float,
+
+	# feels_like	float,
+
+	# wind_gust	float,
+
+	# wind_speed	float,
+
+	# wind_deg	int,
+
+	# rain_1h	float,
+
+	# rain_3h	float,
+
+	# snow_1h	float,
+
+	# snow_3h	float,
+
+	#
+
+	# weather_description	varchar(20),
+
+	# weather_icon	varchar(5),
+
+	# weather_main	varchar(20),
+
+	#
+
+	# city_ID	varchar(20),
+
+	# city_Name	varchar(20),
+
+	# date_calculated	date,
+
+	# timezone	int,
+
+	#
+
+	# latitude	float,
+
+	# longitude	float,
+
+	# sunrise	varchar(20),
+
+	# sunset	varchar(20),
+
+	# country	varchar(30),
+
+	# main_pressure	int,
+
+	# grnd_level	int,
+
+	# sea_level	int
+
+
 	# For testing purposes.
-	pprint.pprint(data)
 	print()
-	print()
-
-
-def saveToDatabase():
-	print()
-	# Have cursor statements in here
-	# data['main']['temp'] and assignment and stuff like that.
-
 
 # ================= CREATE ELEMENTS FOR GUI =================
 
@@ -117,7 +165,7 @@ output = Label(root, text="Weather API call goes here.")
 output.grid(row=2, column=0)
 
 # Search button
-searchButton = Button(root, text="Search", command=lambda: searchButtonClicked())
+searchButton = Button(root, text="Save to Database", command=lambda: saveButtonClicked())
 searchButton.grid(row=1, column=1)
 
 # Search radio buttons
@@ -143,10 +191,6 @@ temperatureUnits.set(1)            # Set the default value of the group of radio
 Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
 Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
 
-
-# Save to database button
-saveButton = Button(root, text="Save to\nlocal database", command=lambda: saveToDatabase())
-saveButton.grid(row=9, column=1)
 
 # ===================== END CREATE ELEMENTS FOR GUI =====================
 
