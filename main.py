@@ -79,8 +79,6 @@ def askCity():
 
 def testCall(cityName):
 
-
-
 	return 0
 
 
@@ -98,6 +96,8 @@ def searchButtonClicked():
 
 	# For testing purposes.
 	pprint.pprint(data)
+	print()
+	print()
 
 
 def saveToDatabase():
@@ -124,7 +124,7 @@ searchButton.grid(row=1, column=1)
 searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
 searchChoices.set(1)            # Set the default value of the group of radio buttons.
 
-Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)      # (Offset so it's easier to see).
+Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)
 Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
 Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
 Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
