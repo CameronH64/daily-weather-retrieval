@@ -1,4 +1,5 @@
 show databases;
+drop database test;
 
 show databases like "weather_database";
 
