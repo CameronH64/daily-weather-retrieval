@@ -21,32 +21,11 @@ from tkinter import *
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
 
-# Setup the Tkinter window.
+# Set up the Tkinter window.
 root = Tk()
 root.geometry("360x300")
 root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
-
-
-def connectToDatabase():
-
-	# (test_weather_database is hardcoded).
-
-	# MySQL connector setup
-	db = mysql.connector.connect(
-
-		host="localhost",
-		user="root",
-		password=os.getenv("rootPassword"),
-
-		# Can I check database here? Do testing later...
-		database="weather_database"
-
-	)
-
-	# Create the cursor for executing SQL commands.
-	cursor = db.cursor()
-
 
 def APICall():
 
@@ -81,6 +60,8 @@ def saveButtonClicked():
 	requestReturn = requests.get(callString)
 	data = requestReturn.json()
 
+	pprint.pprint(data)
+
 
 	# I now have data, which holds the information I need.
 	# Put in a large try catch?
@@ -90,63 +71,58 @@ def saveButtonClicked():
 		clouds = data['snow']['snow.1h']
 	except Exception:
 		print("Error: Hasn't snowed yet.")
-	# humidity	varchar(20),
 
-	# temp_min	float,
+	# humidity      varchar(20)
 
-	# temp_max	float,
+	# temp_min      float
 
-	# main_temp	float,
+	# temp_max      float
 
-	# feels_like	float,
+	# main_temp     float
 
-	# wind_gust	float,
+	# feels_like	float
 
-	# wind_speed	float,
+	# wind_gust     float
 
-	# wind_deg	int,
+	# wind_speed    float
 
-	# rain_1h	float,
+	# wind_deg      int
 
-	# rain_3h	float,
+	# rain_1h       float
 
-	# snow_1h	float,
+	# rain_3h       float
 
-	# snow_3h	float,
+	# snow_1h       float
 
-	#
+	# snow_3h       float
 
-	# weather_description	varchar(20),
+	# weather_description       varchar(20)
 
-	# weather_icon	varchar(5),
+	# weather_icon				varchar(5)
 
-	# weather_main	varchar(20),
+	# weather_main				varchar(20)
 
-	#
+	# city_ID					varchar(20)
 
-	# city_ID	varchar(20),
+	# city_Name					varchar(20)
 
-	# city_Name	varchar(20),
+	# date_calculated			date
 
-	# date_calculated	date,
+	# timezone		int
 
-	# timezone	int,
+	# latitude		float
 
-	#
+	# longitude		float
 
-	# latitude	float,
+	# sunrise		varchar(20)
 
-	# longitude	float,
+	# sunset		varchar(20)
 
-	# sunrise	varchar(20),
+	# country		varchar(30)
 
-	# sunset	varchar(20),
+	# main_pressure	int
 
-	# country	varchar(30),
-
-	# main_pressure	int,
-
-	# grnd_level	int,
+	# grnd_level	int
 
 	# sea_level	int
 
@@ -161,44 +137,57 @@ searchEntry = Entry(root, width=30)
 searchEntry.grid(row=1, column=0)
 
 # API call return box
-output = Label(root, text="Weather API call goes here.")
-output.grid(row=2, column=0)
+# output = Label(root, text="Weather API call goes here.")
+# output.grid(row=2, column=0)
 
 # Search button
 searchButton = Button(root, text="Save to Database", command=lambda: saveButtonClicked())
 searchButton.grid(row=1, column=1)
 
 # Search radio buttons
-searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-searchChoices.set(1)            # Set the default value of the group of radio buttons.
-
-Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)
-Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
-Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
-Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
+# searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
+# searchChoices.set(1)            # Set the default value of the group of radio buttons.
+#
+# Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)
+# Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
+# Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
+# Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
 
 
 # Temperature units choice label
-temperatureUnits = Label(root, text="Temperature Units:")
-temperatureUnits.grid(row=6, column=1)
+# temperatureUnits = Label(root, text="Temperature Units:")
+# temperatureUnits.grid(row=6, column=1)
 
 
 # Temperature radio buttons
 
-temperatureUnits = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-temperatureUnits.set(1)            # Set the default value of the group of radio buttons.
-
-Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
-Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
+# temperatureUnits = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
+# temperatureUnits.set(1)            # Set the default value of the group of radio buttons.
+#
+# Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
+# Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
 
 
 # ===================== END CREATE ELEMENTS FOR GUI =====================
 
+# (weather_database is hardcoded).
+
+# MySQL connector setup
+db = mysql.connector.connect(
+
+	host="localhost",
+	user="root",
+	password=os.getenv("rootPassword"),
+
+	# Can I check database here? Do testing later...
+	database="weather_database"
+
+)
+
+# Create the cursor for executing SQL commands.
+mycursor = db.cursor()
 
 root.mainloop()
-
-connectToDatabase()
-
 
 
 # ================= REFERENCE MATERIALS =================
