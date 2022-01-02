@@ -56,7 +56,7 @@ def saveButtonClicked():
 	cityName = searchEntry.get()
 
 	# Do Open Weather Map API call.
-	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric".format(cityName, os.getenv("APIKey"))
+	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=imperial".format(cityName, os.getenv("APIKey"))
 	requestReturn = requests.get(callString)
 	data = requestReturn.json()
 
@@ -77,7 +77,7 @@ def saveButtonClicked():
 		print("API Call Error: No clouds.")
 	else:
 		# Save to database code here.
-		print(str(clouds) + "%")
+		print("Clouds: \t\t\t\t" + str(clouds) + "%")
 
 	# humidity      varchar(20)
 	try:
@@ -86,7 +86,7 @@ def saveButtonClicked():
 		print("API Call Error: No humidity.")
 	else:
 		# Save to database code here.
-		print(str(humidity) + "%")
+		print("Humidity: \t\t\t\t" + str(humidity) + "%")
 
 	# temp_min      float
 	try:
@@ -95,7 +95,7 @@ def saveButtonClicked():
 		print("API Call Error: No minimum temperature.")
 	else:
 		# Save to database code here.
-		print(str(temp_min) + " degrees fahrenheit")
+		print("Minimum temperature: \t" + str(temp_min) + " degrees fahrenheit")
 
 	# temp_max      float
 	try:
@@ -104,7 +104,7 @@ def saveButtonClicked():
 		print("API Call Error: No maximum temperature.")
 	else:
 		# Save to database code here.
-		print(str(temp_max) + " degrees fahrenheit")
+		print("Maximum temperature: \t" + str(temp_max) + " degrees fahrenheit")
 
 	# main_temp     float
 	try:
@@ -113,7 +113,7 @@ def saveButtonClicked():
 		print("API Call Error: No maximum temperature.")
 	else:
 		# Save to database code here.
-		print(str(temp) + " degrees fahrenheit")
+		print("Temperature: \t\t\t" + str(temp) + " degrees fahrenheit")
 
 	# feels_like	float
 	try:
@@ -122,7 +122,7 @@ def saveButtonClicked():
 		print("API Call Error: No feels-like temperature.")
 	else:
 		# Save to database code here.
-		print(str(feels_like) + " degrees fahrenheit")
+		print("Feels like: \t\t\t" + str(feels_like) + " degrees fahrenheit")
 
 	# wind_gust     float
 	try:
@@ -131,7 +131,7 @@ def saveButtonClicked():
 		print("API Call Error: No wind gust measurement.")
 	else:
 		# Save to database code here.
-		print(str(gust) + " miles per hour")
+		print("Wind gust: \t\t\t\t" + str(gust) + " miles per hour")
 
 	# wind_speed    float
 	try:
@@ -140,7 +140,7 @@ def saveButtonClicked():
 		print("API Call Error: No wind speed measurement.")
 	else:
 		# Save to database code here.
-		print(str(speed) + " miles per hour")
+		print("Wind speed: \t\t\t" + str(speed) + " miles per hour")
 
 	# wind_deg      int
 	try:
@@ -149,7 +149,7 @@ def saveButtonClicked():
 		print("API Call Error: No wind direction.")
 	else:
 		# Save to database code here.
-		print(str(deg) + " meteorological degrees")
+		print("Wind Degree: \t\t\t" + str(deg) + " meteorological degrees")
 
 	# rain_1h       float
 	try:
@@ -158,7 +158,7 @@ def saveButtonClicked():
 		print("API Call Error: No recent 1 hour rain measurement.")
 	else:
 		# Save to database code here.
-		print(str(rain_1h) + " mm")
+		print("Rain 1h: \t\t\t" + str(rain_1h) + " mm")
 
 	# rain_3h       float
 	try:
@@ -167,7 +167,7 @@ def saveButtonClicked():
 		print("API Call Error: No recent 3 hour rain measurement.")
 	else:
 		# Save to database code here.
-		print(str(rain_3h) + " mm")
+		print("Rain 3h: \t\t\t" + str(rain_3h) + " mm")
 
 	# snow_1h       float
 	try:
@@ -176,7 +176,7 @@ def saveButtonClicked():
 		print("API Call Error: No recent 1 hour snow measurement.")
 	else:
 		# Save to database code here.
-		print(str(snow_1h) + " mm")
+		print("Snow 1h: \t\t\t\t" + str(snow_1h) + " mm")
 
 	# snow_3h       float
 	try:
@@ -185,34 +185,34 @@ def saveButtonClicked():
 		print("API Call Error: No recent 3 hour snow measurement.")
 	else:
 		# Save to database code here.
-		print(str(snow_3h) + " mm")
+		print("Snow 3h: \t\t\t\t" + str(snow_3h) + " mm")
 
 	# weather_description       varchar(20)
 	try:
-		description = data['weather']['description']
+		description = data['weather'][0]['description']
 	except Exception:
 		print("API Call Error: No weather description.")
 	else:
 		# Save to database code here.
-		print(str(description))
+		print("Weather Description: \t" + str(description))
 
 	# weather_icon				varchar(5)
 	try:
-		icon = data['weather']['icon']
+		icon = data['weather'][0]['icon']
 	except Exception:
 		print("API Call Error: No weather icon.")
 	else:
 		# Save to database code here.
-		print(str(icon) + " (this is the weather icon)")
+		print("Weather icon: \t\t\t" + str(icon))
 
 	# weather_main				varchar(20)
 	try:
-		main = data['weather']['main']
+		main = data['weather'][0]['main']
 	except Exception:
 		print("API Call Error: No weather main.")
 	else:
 		# Save to database code here.
-		print(str(main))
+		print("Weather Main: \t\t\t" + str(main))
 
 	# city_ID					varchar(20)
 	try:
@@ -221,7 +221,7 @@ def saveButtonClicked():
 		print("API Call Error: No city id.")
 	else:
 		# Save to database code here.
-		print(str(id))
+		print("City ID: \t\t\t\t" + str(id))
 
 	# city_Name					varchar(20)
 	try:
@@ -230,7 +230,7 @@ def saveButtonClicked():
 		print("API Call Error: No city name.")
 	else:
 		# Save to database code here.
-		print(str(name))
+		print("City Name: \t\t\t\t" + str(name))
 
 	# date_calculated			date
 	try:
@@ -239,7 +239,7 @@ def saveButtonClicked():
 		print("API Call Error: No calculation date.")
 	else:
 		# Save to database code here.
-		print(str(dt))
+		print("Date Calculated: \t\t" + str(dt))
 
 	# timezone		int
 	try:
@@ -248,7 +248,7 @@ def saveButtonClicked():
 		print("API Call Error: No timezone.")
 	else:
 		# Save to database code here.
-		print(str(timezone))
+		print("Timezone: \t\t\t\t" + str(timezone))
 
 	# latitude		float
 	try:
@@ -257,7 +257,7 @@ def saveButtonClicked():
 		print("API Call Error: No latitude.")
 	else:
 		# Save to database code here.
-		print(str(latitude))
+		print("Latitude: \t\t\t\t" + str(latitude))
 
 	# longitude		float
 	try:
@@ -266,7 +266,7 @@ def saveButtonClicked():
 		print("API Call Error: No longitude.")
 	else:
 		# Save to database code here.
-		print(str(longitude))
+		print("Longitude: \t\t\t\t" + str(longitude))
 
 	# sunrise		varchar(20)
 	try:
@@ -275,7 +275,7 @@ def saveButtonClicked():
 		print("API Call Error: No sunrise.")
 	else:
 		# Save to database code here.
-		print(str(sunrise))
+		print("Sunrise: \t\t\t\t" + str(sunrise))
 
 	# sunset		varchar(20)
 	try:
@@ -284,7 +284,7 @@ def saveButtonClicked():
 		print("API Call Error: No sunset.")
 	else:
 		# Save to database code here.
-		print(str(sunset))
+		print("Sunset: \t\t\t\t" + str(sunset))
 
 	# country		varchar(30)
 	try:
@@ -293,7 +293,7 @@ def saveButtonClicked():
 		print("API Call Error: No country.")
 	else:
 		# Save to database code here.
-		print(str(country))
+		print("Country: \t\t\t\t" + str(country))
 
 	# main_pressure	int
 	try:
@@ -302,7 +302,7 @@ def saveButtonClicked():
 		print("API Call Error: No pressure.")
 	else:
 		# Save to database code here.
-		print(str(pressure))
+		print("Pressure: \t" + str(pressure))
 
 	# grnd_level	int
 	try:
@@ -311,7 +311,7 @@ def saveButtonClicked():
 		print("API Call Error: No grnd_level pressure.")
 	else:
 		# Save to database code here.
-		print(str(grnd_level))
+		print("Ground level pressure: \t" + str(grnd_level))
 
 	# sea_level	int
 	try:
@@ -320,7 +320,7 @@ def saveButtonClicked():
 		print("API Call Error: No sea_level pressure.")
 	else:
 		# Save to database code here.
-		print(str(sea_level))
+		print("Sea level pressure: \t" + str(sea_level))
 
 
 
@@ -362,7 +362,7 @@ searchButton.grid(row=1, column=1)
 # Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
 
 
-# ===================== END CREATE ELEMENTS FOR GUI =====================
+# ===================== END CREATE ELEMENTS FOR GUI; START CODE=====================
 
 # (weather_database is hardcoded).
 
