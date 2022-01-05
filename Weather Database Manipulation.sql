@@ -11,6 +11,12 @@ drop table weather_details;
 
 select * from weather_details;
 
+insert into weather_details(date_calculated)
+values('2022-01-04 09:23:48');
+
+delete from weather_details
+where date_calculated='2022-01-04 09:23:48';
+
 create table weather_details(
     clouds						varchar(20),
     humidity					varchar(20),
@@ -32,13 +38,13 @@ create table weather_details(
     
     city_ID						varchar(20),
     city_Name					varchar(20),
-    date_calculated				date,			/* Make this the primary key */
+    date_calculated				datetime,			/* Make this the primary key */
     timezone					int,
     
     latitude					float,
     longitude					float,
-    sunrise     				varchar(20),	/* Can be unix OR UTC? */
-    sunset	     				varchar(20),
+    sunrise     				varchar(20),	/* Convert from UNIX */
+    sunset	     				varchar(20),	/* Convert from UNIX */
     country						varchar(30),
     main_pressure				int,
     grnd_level					int,
