@@ -16,7 +16,7 @@ import pprint               # Simply prints out .json output in a much neater fo
 import mysql.connector      # Used to run SQL commands in Python
 from tkinter import *
 # from PIL import ImageTk, Image
-# import datetime
+import datetime
 
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
@@ -27,47 +27,41 @@ root.geometry("360x300")
 root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
 
-def APICall():
 
-	cityName = input("Enter a city: ")
+def doAPICall(cityName):
 
 	# Do Open Weather Map API call.
 	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=imperial".format(cityName, os.getenv("APIKey"))
 	requestReturn = requests.get(callString)
-	data = requestReturn.json()
 
-	print(data['main']['temp'])
+	return requestReturn.json()
 
-
-def askCity():
-	return input("Enter a city: ")
-
-
-def testCall(cityName):
-
-	return 0
-
-
-# Testing City ID's
-# Greenbrier, TN:        4626286
-# Greenbrier, AR:        4113067
 
 def saveButtonClicked():
+
 	cityName = searchEntry.get()
+	data = doAPICall(cityName)
 
-	# Do Open Weather Map API call.
-	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=imperial".format(cityName, os.getenv("APIKey"))
-	requestReturn = requests.get(callString)
-	data = requestReturn.json()
+	# Convert the time calculated.
+	dt = data['dt']
+	dateCalculated = str(datetime.datetime.fromtimestamp(dt))
+	print("Date Calculated: \t\t" + str(dateCalculated))
 
+	# If row with this datetime exists,
+	# Print error message.
+	# Else, insert data.
+
+	# Do first SQL insert with only this calculation date.
+	insertCalculationDateRow = ("insert into weather_details(date_calculated) "
+								"values('2022-01-04 09:23:48');")
+
+	mycursor.execute(insertCalculationDateRow, dateCalculated)
+	db.commit()
+
+	# For debugging purposes
 	pprint.pprint(data)
-	print()			# For testing formatting purposes.
 	print()
-
-	# Next:
-	# Decide what needs exception handling.
-	# Write the save to database code
-	# Will also need to factor in SQL datatypes
+	print()
 
 
 	# clouds	varchar(10),
@@ -233,13 +227,7 @@ def saveButtonClicked():
 		print("City Name: \t\t\t\t" + str(name))
 
 	# date_calculated			date
-	try:
-		dt = data['dt']
-	except Exception:
-		print("API Call Error: No calculation date.")
-	else:
-		# Save to database code here.
-		print("Date Calculated: \t\t" + str(dt))
+	# Used to be here
 
 	# timezone		int
 	try:
@@ -302,7 +290,7 @@ def saveButtonClicked():
 		print("API Call Error: No pressure.")
 	else:
 		# Save to database code here.
-		print("Pressure: \t" + str(pressure))
+		print("Pressure: \t\t" + str(pressure))
 
 	# grnd_level	int
 	try:
@@ -311,7 +299,7 @@ def saveButtonClicked():
 		print("API Call Error: No grnd_level pressure.")
 	else:
 		# Save to database code here.
-		print("Ground level pressure: \t" + str(grnd_level))
+		print("Ground level pressure: \t\t" + str(grnd_level))
 
 	# sea_level	int
 	try:
@@ -320,7 +308,7 @@ def saveButtonClicked():
 		print("API Call Error: No sea_level pressure.")
 	else:
 		# Save to database code here.
-		print("Sea level pressure: \t" + str(sea_level))
+		print("Sea level pressure: \t\t" + str(sea_level))
 
 
 
@@ -383,8 +371,13 @@ mycursor = db.cursor()
 
 root.mainloop()
 
+db.close()
 
 # ================= REFERENCE MATERIALS =================
+
+# Testing City ID's
+# Greenbrier, TN:        4626286
+# Greenbrier, AR:        4113067
 
 # Basically, all Tkinter is:
 
