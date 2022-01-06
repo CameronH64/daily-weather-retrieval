@@ -18,12 +18,13 @@ from tkinter import *
 # from PIL import ImageTk, Image
 import datetime
 
+
 # dotenv, for environment variables and protection of API key.
 load_dotenv()
 
 # Set up the Tkinter window.
 root = Tk()
-root.geometry("360x300")
+root.geometry("360x300+1400+600")
 root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
 
@@ -44,24 +45,14 @@ def saveButtonClicked():
 
 	# Convert the time calculated.
 	dt = data['dt']
-	dateCalculated = str(datetime.datetime.fromtimestamp(dt))
+	dateCalculated = datetime.datetime.fromtimestamp(dt)
 	print("Date Calculated: \t\t" + str(dateCalculated))
+	dateCalculated = str(dateCalculated)
 
-	# If row with this datetime exists,
-	# Print error message.
-	# Else, insert data.
+	add_employee = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated		# Key code!
 
-	# Do first SQL insert with only this calculation date.
-	insertCalculationDateRow = ("insert into weather_details(date_calculated) "
-								"values('2022-01-04 09:23:48');")
-
-	mycursor.execute(insertCalculationDateRow, dateCalculated)
+	mycursor.execute(add_employee)
 	db.commit()
-
-	# For debugging purposes
-	pprint.pprint(data)
-	print()
-	print()
 
 
 	# clouds	varchar(10),
