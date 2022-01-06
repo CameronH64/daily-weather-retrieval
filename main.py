@@ -40,28 +40,34 @@ def doAPICall(cityName):
 
 def saveButtonClicked():
 
+	# Do the API call
 	cityName = searchEntry.get()
 	data = doAPICall(cityName)
 
 	# Convert the time calculated.
 	dt = data['dt']
-	dateCalculated = datetime.datetime.fromtimestamp(dt)
-	print("Date Calculated: \t\t" + str(dateCalculated))
-	dateCalculated = str(dateCalculated)
+	dateCalculated = str(datetime.datetime.fromtimestamp(dt))
+	# print("Date Calculated: \t\t" + str(dateCalculated))			# Still may need for testing.
+	# dateCalculated = str(dateCalculated)
 
-	add_employee = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated		# Key code!
+	addDateCalculated = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated		# Key code!
 
-	mycursor.execute(add_employee)
+	mycursor.execute(addDateCalculated)
 	db.commit()
 
+	# Since a row has now been created with the primary key in place, the rest of the info can be inserted as necessary.
 
 	# clouds	varchar(10),
 	try:
-		clouds = data['clouds']['all']
+		clouds = int(data['clouds']['all'])
 	except Exception:
 		print("API Call Error: No clouds.")
 	else:
 		# Save to database code here.
+		addClouds = "UPDATE weather_details SET clouds = '%s' WHERE date_calculated = '%s';" % (clouds, dateCalculated)
+		mycursor.execute(addClouds)
+		db.commit()
+
 		print("Clouds: \t\t\t\t" + str(clouds) + "%")
 
 	# humidity      varchar(20)

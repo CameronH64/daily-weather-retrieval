@@ -15,7 +15,7 @@ insert into weather_details(date_calculated)
 values('2022-01-04 09:23:48');
 
 delete from weather_details
-where date_calculated='2022-01-04 09:23:48';
+where date_calculated='2022-01-05 19:35:43';
 
 create table weather_details(
     clouds						varchar(20),
