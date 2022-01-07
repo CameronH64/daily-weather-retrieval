@@ -57,7 +57,7 @@ def saveButtonClicked():
 	print(rowExistsList)
 
 
-	if 0 in rowExistsList:
+	if 0 in rowExistsList[0]:
 
 		addDateCalculated = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated  # Key code!
 		mycursor.execute(addDateCalculated)
@@ -315,12 +315,9 @@ def saveButtonClicked():
 		else:
 			# Save to database code here.
 			print("Sea level pressure: \t\t" + str(sea_level))
-	elif 1 in rowExistsList:
-		rowExists = True
-
 
 	# Else, print out error message, saying that user must wait for next weather update.
-	elif 1 in rowExistsList:
+	elif 1 in rowExistsList[0]:
 		print("Eh, no can do; date calculated already exists. Try again later.")
 
 
