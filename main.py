@@ -50,263 +50,278 @@ def saveButtonClicked():
 	# print("Date Calculated: \t\t" + str(dateCalculated))			# Still may need for testing.
 	# dateCalculated = str(dateCalculated)
 
-	addDateCalculated = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated		# Key code!
+	rowExistsQuery = "SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='%s');" % dateCalculated
+	mycursor.execute(rowExistsQuery)
 
-	mycursor.execute(addDateCalculated)
-	db.commit()
+	rowExistsList = mycursor.fetchall()
+	print(rowExistsList)
 
-	# Since a row has now been created with the primary key in place, the rest of the info can be inserted as necessary.
 
-	# clouds	varchar(10),
-	try:
-		clouds = int(data['clouds']['all'])
-	except Exception:
-		print("API Call Error: No clouds.")
-	else:
-		# Save to database code here.
-		addClouds = "UPDATE weather_details SET clouds = '%s' WHERE date_calculated = '%s';" % (clouds, dateCalculated)
-		mycursor.execute(addClouds)
+	if 0 in rowExistsList:
+
+		addDateCalculated = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated  # Key code!
+		mycursor.execute(addDateCalculated)
 		db.commit()
 
-		print("Clouds: \t\t\t\t" + str(clouds) + "%")
+		# Since a row has now been created with the primary key in place, the rest of the info can be inserted as necessary.
 
-	# humidity      varchar(20)
-	try:
-		humidity = data['main']['humidity']
-	except Exception:
-		print("API Call Error: No humidity.")
-	else:
-		# Save to database code here.
-		print("Humidity: \t\t\t\t" + str(humidity) + "%")
+		# clouds	varchar(10),
+		try:
+			clouds = int(data['clouds']['all'])
+		except Exception:
+			print("API Call Error: No clouds.")
+		else:
+			# Save to database code here.
+			addClouds = "UPDATE weather_details SET clouds = '%s' WHERE date_calculated = '%s';" % (
+			clouds, dateCalculated)
+			mycursor.execute(addClouds)
+			db.commit()
 
-	# temp_min      float
-	try:
-		temp_min = data['main']['temp_min']
-	except Exception:
-		print("API Call Error: No minimum temperature.")
-	else:
-		# Save to database code here.
-		print("Minimum temperature: \t" + str(temp_min) + " degrees fahrenheit")
+			print("Clouds: \t\t\t\t" + str(clouds) + "%")
 
-	# temp_max      float
-	try:
-		temp_max = data['main']['temp_max']
-	except Exception:
-		print("API Call Error: No maximum temperature.")
-	else:
-		# Save to database code here.
-		print("Maximum temperature: \t" + str(temp_max) + " degrees fahrenheit")
+		# humidity      varchar(20)
+		try:
+			humidity = data['main']['humidity']
+		except Exception:
+			print("API Call Error: No humidity.")
+		else:
+			# Save to database code here.
+			print("Humidity: \t\t\t\t" + str(humidity) + "%")
 
-	# main_temp     float
-	try:
-		temp = data['main']['temp']
-	except Exception:
-		print("API Call Error: No maximum temperature.")
-	else:
-		# Save to database code here.
-		print("Temperature: \t\t\t" + str(temp) + " degrees fahrenheit")
+		# temp_min      float
+		try:
+			temp_min = data['main']['temp_min']
+		except Exception:
+			print("API Call Error: No minimum temperature.")
+		else:
+			# Save to database code here.
+			print("Minimum temperature: \t" + str(temp_min) + " degrees fahrenheit")
 
-	# feels_like	float
-	try:
-		feels_like = data['main']['feels_like']
-	except Exception:
-		print("API Call Error: No feels-like temperature.")
-	else:
-		# Save to database code here.
-		print("Feels like: \t\t\t" + str(feels_like) + " degrees fahrenheit")
+		# temp_max      float
+		try:
+			temp_max = data['main']['temp_max']
+		except Exception:
+			print("API Call Error: No maximum temperature.")
+		else:
+			# Save to database code here.
+			print("Maximum temperature: \t" + str(temp_max) + " degrees fahrenheit")
 
-	# wind_gust     float
-	try:
-		gust = data['wind']['gust']
-	except Exception:
-		print("API Call Error: No wind gust measurement.")
-	else:
-		# Save to database code here.
-		print("Wind gust: \t\t\t\t" + str(gust) + " miles per hour")
+		# main_temp     float
+		try:
+			temp = data['main']['temp']
+		except Exception:
+			print("API Call Error: No maximum temperature.")
+		else:
+			# Save to database code here.
+			print("Temperature: \t\t\t" + str(temp) + " degrees fahrenheit")
 
-	# wind_speed    float
-	try:
-		speed = data['wind']['speed']
-	except Exception:
-		print("API Call Error: No wind speed measurement.")
-	else:
-		# Save to database code here.
-		print("Wind speed: \t\t\t" + str(speed) + " miles per hour")
+		# feels_like	float
+		try:
+			feels_like = data['main']['feels_like']
+		except Exception:
+			print("API Call Error: No feels-like temperature.")
+		else:
+			# Save to database code here.
+			print("Feels like: \t\t\t" + str(feels_like) + " degrees fahrenheit")
 
-	# wind_deg      int
-	try:
-		deg = data['wind']['deg']
-	except Exception:
-		print("API Call Error: No wind direction.")
-	else:
-		# Save to database code here.
-		print("Wind Degree: \t\t\t" + str(deg) + " meteorological degrees")
+		# wind_gust     float
+		try:
+			gust = data['wind']['gust']
+		except Exception:
+			print("API Call Error: No wind gust measurement.")
+		else:
+			# Save to database code here.
+			print("Wind gust: \t\t\t\t" + str(gust) + " miles per hour")
 
-	# rain_1h       float
-	try:
-		rain_1h = data['rain']['1h']
-	except Exception:
-		print("API Call Error: No recent 1 hour rain measurement.")
-	else:
-		# Save to database code here.
-		print("Rain 1h: \t\t\t" + str(rain_1h) + " mm")
+		# wind_speed    float
+		try:
+			speed = data['wind']['speed']
+		except Exception:
+			print("API Call Error: No wind speed measurement.")
+		else:
+			# Save to database code here.
+			print("Wind speed: \t\t\t" + str(speed) + " miles per hour")
 
-	# rain_3h       float
-	try:
-		rain_3h = data['rain']['3h']
-	except Exception:
-		print("API Call Error: No recent 3 hour rain measurement.")
-	else:
-		# Save to database code here.
-		print("Rain 3h: \t\t\t" + str(rain_3h) + " mm")
+		# wind_deg      int
+		try:
+			deg = data['wind']['deg']
+		except Exception:
+			print("API Call Error: No wind direction.")
+		else:
+			# Save to database code here.
+			print("Wind Degree: \t\t\t" + str(deg) + " meteorological degrees")
 
-	# snow_1h       float
-	try:
-		snow_1h = data['snow']['1h']
-	except Exception:
-		print("API Call Error: No recent 1 hour snow measurement.")
-	else:
-		# Save to database code here.
-		print("Snow 1h: \t\t\t\t" + str(snow_1h) + " mm")
+		# rain_1h       float
+		try:
+			rain_1h = data['rain']['1h']
+		except Exception:
+			print("API Call Error: No recent 1 hour rain measurement.")
+		else:
+			# Save to database code here.
+			print("Rain 1h: \t\t\t" + str(rain_1h) + " mm")
 
-	# snow_3h       float
-	try:
-		snow_3h = data['snow']['3h']
-	except Exception:
-		print("API Call Error: No recent 3 hour snow measurement.")
-	else:
-		# Save to database code here.
-		print("Snow 3h: \t\t\t\t" + str(snow_3h) + " mm")
+		# rain_3h       float
+		try:
+			rain_3h = data['rain']['3h']
+		except Exception:
+			print("API Call Error: No recent 3 hour rain measurement.")
+		else:
+			# Save to database code here.
+			print("Rain 3h: \t\t\t" + str(rain_3h) + " mm")
 
-	# weather_description       varchar(20)
-	try:
-		description = data['weather'][0]['description']
-	except Exception:
-		print("API Call Error: No weather description.")
-	else:
-		# Save to database code here.
-		print("Weather Description: \t" + str(description))
+		# snow_1h       float
+		try:
+			snow_1h = data['snow']['1h']
+		except Exception:
+			print("API Call Error: No recent 1 hour snow measurement.")
+		else:
+			# Save to database code here.
+			print("Snow 1h: \t\t\t\t" + str(snow_1h) + " mm")
 
-	# weather_icon				varchar(5)
-	try:
-		icon = data['weather'][0]['icon']
-	except Exception:
-		print("API Call Error: No weather icon.")
-	else:
-		# Save to database code here.
-		print("Weather icon: \t\t\t" + str(icon))
+		# snow_3h       float
+		try:
+			snow_3h = data['snow']['3h']
+		except Exception:
+			print("API Call Error: No recent 3 hour snow measurement.")
+		else:
+			# Save to database code here.
+			print("Snow 3h: \t\t\t\t" + str(snow_3h) + " mm")
 
-	# weather_main				varchar(20)
-	try:
-		main = data['weather'][0]['main']
-	except Exception:
-		print("API Call Error: No weather main.")
-	else:
-		# Save to database code here.
-		print("Weather Main: \t\t\t" + str(main))
+		# weather_description       varchar(20)
+		try:
+			description = data['weather'][0]['description']
+		except Exception:
+			print("API Call Error: No weather description.")
+		else:
+			# Save to database code here.
+			print("Weather Description: \t" + str(description))
 
-	# city_ID					varchar(20)
-	try:
-		id = data['id']
-	except Exception:
-		print("API Call Error: No city id.")
-	else:
-		# Save to database code here.
-		print("City ID: \t\t\t\t" + str(id))
+		# weather_icon				varchar(5)
+		try:
+			icon = data['weather'][0]['icon']
+		except Exception:
+			print("API Call Error: No weather icon.")
+		else:
+			# Save to database code here.
+			print("Weather icon: \t\t\t" + str(icon))
 
-	# city_Name					varchar(20)
-	try:
-		name = data['name']
-	except Exception:
-		print("API Call Error: No city name.")
-	else:
-		# Save to database code here.
-		print("City Name: \t\t\t\t" + str(name))
+		# weather_main				varchar(20)
+		try:
+			main = data['weather'][0]['main']
+		except Exception:
+			print("API Call Error: No weather main.")
+		else:
+			# Save to database code here.
+			print("Weather Main: \t\t\t" + str(main))
 
-	# date_calculated			date
-	# Used to be here
+		# city_ID					varchar(20)
+		try:
+			id = data['id']
+		except Exception:
+			print("API Call Error: No city id.")
+		else:
+			# Save to database code here.
+			print("City ID: \t\t\t\t" + str(id))
 
-	# timezone		int
-	try:
-		timezone = data['timezone']
-	except Exception:
-		print("API Call Error: No timezone.")
-	else:
-		# Save to database code here.
-		print("Timezone: \t\t\t\t" + str(timezone))
+		# city_Name					varchar(20)
+		try:
+			name = data['name']
+		except Exception:
+			print("API Call Error: No city name.")
+		else:
+			# Save to database code here.
+			print("City Name: \t\t\t\t" + str(name))
 
-	# latitude		float
-	try:
-		latitude = data['coord']['lat']
-	except Exception:
-		print("API Call Error: No latitude.")
-	else:
-		# Save to database code here.
-		print("Latitude: \t\t\t\t" + str(latitude))
+		# date_calculated			date
+		# Used to be here
 
-	# longitude		float
-	try:
-		longitude = data['coord']['lon']
-	except Exception:
-		print("API Call Error: No longitude.")
-	else:
-		# Save to database code here.
-		print("Longitude: \t\t\t\t" + str(longitude))
+		# timezone		int
+		try:
+			timezone = data['timezone']
+		except Exception:
+			print("API Call Error: No timezone.")
+		else:
+			# Save to database code here.
+			print("Timezone: \t\t\t\t" + str(timezone))
 
-	# sunrise		varchar(20)
-	try:
-		sunrise = data['sys']['sunrise']
-	except Exception:
-		print("API Call Error: No sunrise.")
-	else:
-		# Save to database code here.
-		print("Sunrise: \t\t\t\t" + str(sunrise))
+		# latitude		float
+		try:
+			latitude = data['coord']['lat']
+		except Exception:
+			print("API Call Error: No latitude.")
+		else:
+			# Save to database code here.
+			print("Latitude: \t\t\t\t" + str(latitude))
 
-	# sunset		varchar(20)
-	try:
-		sunset = data['sys']['sunset']
-	except Exception:
-		print("API Call Error: No sunset.")
-	else:
-		# Save to database code here.
-		print("Sunset: \t\t\t\t" + str(sunset))
+		# longitude		float
+		try:
+			longitude = data['coord']['lon']
+		except Exception:
+			print("API Call Error: No longitude.")
+		else:
+			# Save to database code here.
+			print("Longitude: \t\t\t\t" + str(longitude))
 
-	# country		varchar(30)
-	try:
-		country = data['sys']['country']
-	except Exception:
-		print("API Call Error: No country.")
-	else:
-		# Save to database code here.
-		print("Country: \t\t\t\t" + str(country))
+		# sunrise		varchar(20)
+		try:
+			sunrise = data['sys']['sunrise']
+		except Exception:
+			print("API Call Error: No sunrise.")
+		else:
+			# Save to database code here.
+			print("Sunrise: \t\t\t\t" + str(sunrise))
 
-	# main_pressure	int
-	try:
-		pressure = data['sys']['pressure']
-	except Exception:
-		print("API Call Error: No pressure.")
-	else:
-		# Save to database code here.
-		print("Pressure: \t\t" + str(pressure))
+		# sunset		varchar(20)
+		try:
+			sunset = data['sys']['sunset']
+		except Exception:
+			print("API Call Error: No sunset.")
+		else:
+			# Save to database code here.
+			print("Sunset: \t\t\t\t" + str(sunset))
 
-	# grnd_level	int
-	try:
-		grnd_level = data['sys']['grnd_level']
-	except Exception:
-		print("API Call Error: No grnd_level pressure.")
-	else:
-		# Save to database code here.
-		print("Ground level pressure: \t\t" + str(grnd_level))
+		# country		varchar(30)
+		try:
+			country = data['sys']['country']
+		except Exception:
+			print("API Call Error: No country.")
+		else:
+			# Save to database code here.
+			print("Country: \t\t\t\t" + str(country))
 
-	# sea_level	int
-	try:
-		sea_level = data['sys']['sea_level']
-	except Exception:
-		print("API Call Error: No sea_level pressure.")
-	else:
-		# Save to database code here.
-		print("Sea level pressure: \t\t" + str(sea_level))
+		# main_pressure	int
+		try:
+			pressure = data['sys']['pressure']
+		except Exception:
+			print("API Call Error: No pressure.")
+		else:
+			# Save to database code here.
+			print("Pressure: \t\t" + str(pressure))
 
+		# grnd_level	int
+		try:
+			grnd_level = data['sys']['grnd_level']
+		except Exception:
+			print("API Call Error: No grnd_level pressure.")
+		else:
+			# Save to database code here.
+			print("Ground level pressure: \t\t" + str(grnd_level))
+
+		# sea_level	int
+		try:
+			sea_level = data['sys']['sea_level']
+		except Exception:
+			print("API Call Error: No sea_level pressure.")
+		else:
+			# Save to database code here.
+			print("Sea level pressure: \t\t" + str(sea_level))
+	elif 1 in rowExistsList:
+		rowExists = True
+
+
+	# Else, print out error message, saying that user must wait for next weather update.
+	elif 1 in rowExistsList:
+		print("Eh, no can do; date calculated already exists. Try again later.")
 
 
 # ================= CREATE ELEMENTS FOR GUI =================

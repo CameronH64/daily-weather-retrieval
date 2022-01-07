@@ -11,11 +11,13 @@ drop table weather_details;
 
 select * from weather_details;
 
+SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='2022-01-06 20:40:03');
+
 insert into weather_details(date_calculated)
-values('2022-01-04 09:23:48');
+values('2022-01-06 20:40:03');
 
 delete from weather_details
-where date_calculated='2022-01-05 19:35:43';
+where date_calculated='2022-01-06 20:56:05';
 
 create table weather_details(
     clouds						varchar(20),
