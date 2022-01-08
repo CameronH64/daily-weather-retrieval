@@ -24,8 +24,8 @@ delete from weather_details
 where date_calculated='2022-01-07 18:31:37';
 
 create table weather_details(
-    clouds						varchar(20),
-    humidity					varchar(20),
+    clouds						int,
+    humidity					int,
     temp_min					float,
     temp_max					float,
     main_temp					float,
@@ -43,15 +43,15 @@ create table weather_details(
     weather_main				varchar(20),
     
     city_ID						varchar(20),
-    city_name					varchar(20),
+    city_name					varchar(50),
     date_calculated				datetime,			/* Make this the primary key */
-    timezone					int,
+    timezone					int,				/* From OWM site, shift in seconds from UTC. */
     
     latitude					float,
     longitude					float,
-    sunrise     				varchar(20),	/* Convert from UNIX */
-    sunset	     				varchar(20),	/* Convert from UNIX */
-    country						varchar(30),
+    sunrise     				int,	/* Convert from UNIX */
+    sunset	     				int,	/* Convert from UNIX */
+    country						varchar(50),
     main_pressure				int,
     grnd_level					int,
     sea_level					int
