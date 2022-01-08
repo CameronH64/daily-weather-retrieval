@@ -47,6 +47,7 @@ def saveButtonClicked():
 	# Convert the time calculated.
 	dt = data['dt']
 	dateCalculated = str(datetime.datetime.fromtimestamp(dt))
+	cityName = data['name']											# Probably need this code to make formatting of city names in database consistent.
 	# print("Date Calculated: \t\t" + str(dateCalculated))			# Still may need for testing.
 	# dateCalculated = str(dateCalculated)
 
@@ -54,13 +55,14 @@ def saveButtonClicked():
 	mycursor.execute(rowExistsQuery)
 
 	rowExistsList = mycursor.fetchall()
-	print(rowExistsList)
-
+	print("Row check: " + str(rowExistsList))
 
 	if 0 in rowExistsList[0]:
 
-		addDateCalculated = "INSERT INTO weather_details (date_calculated) VALUES ('%s');" % dateCalculated  # Key code!
-		mycursor.execute(addDateCalculated)
+		# It's okay to always assume this is allowed to run because it's been given the go ahead with the row checking code above.
+		insertDateAndCity = "INSERT INTO weather_details (date_calculated, city_name) " \
+							"VALUES ('%s','%s');" % (dateCalculated, cityName)  # Key code!
+		mycursor.execute(insertDateAndCity)
 		db.commit()
 
 		# Since a row has now been created with the primary key in place, the rest of the info can be inserted as necessary.
@@ -72,8 +74,7 @@ def saveButtonClicked():
 			print("API Call Error: No clouds.")
 		else:
 			# Save to database code here.
-			addClouds = "UPDATE weather_details SET clouds = '%s' WHERE date_calculated = '%s';" % (
-			clouds, dateCalculated)
+			addClouds = "UPDATE weather_details SET clouds = '%s' WHERE date_calculated = '%s';" % (clouds, dateCalculated)
 			mycursor.execute(addClouds)
 			db.commit()
 

@@ -11,13 +11,17 @@ drop table weather_details;
 
 select * from weather_details;
 
-SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='2022-01-06 20:40:03');
+SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='2022-01-07 16:16:49');
+SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='2022-01-07 16:16:49' and city_name='conway');
 
 insert into weather_details(date_calculated)
-values('2022-01-06 20:40:03');
+values('2022-01-07 15:46:33');
+
+insert into weather_details(date_calculated, city_name)
+values('2022-01-07 15:46:33', 'conway');
 
 delete from weather_details
-where date_calculated='2022-01-06 20:56:05';
+where date_calculated='2022-01-07 18:31:37';
 
 create table weather_details(
     clouds						varchar(20),
@@ -39,7 +43,7 @@ create table weather_details(
     weather_main				varchar(20),
     
     city_ID						varchar(20),
-    city_Name					varchar(20),
+    city_name					varchar(20),
     date_calculated				datetime,			/* Make this the primary key */
     timezone					int,
     
