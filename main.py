@@ -51,8 +51,9 @@ def saveButtonClicked():
 	# print("Date Calculated: \t\t" + str(dateCalculated))			# Still may need for testing.
 	# dateCalculated = str(dateCalculated)
 
-	rowExistsQuery = "SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='%s');" % dateCalculated
-	mycursor.execute(rowExistsQuery)
+	rowDuplicationCheckQuery = "SELECT EXISTS(SELECT * FROM weather_details " \
+							   "WHERE date_calculated='%s' AND city_name='%s');" % (dateCalculated, cityName)
+	mycursor.execute(rowDuplicationCheckQuery)
 
 	rowExistsList = mycursor.fetchall()
 	print("Row check: " + str(rowExistsList))
@@ -319,8 +320,8 @@ def saveButtonClicked():
 
 	# Else, print out error message, saying that user must wait for next weather update.
 	elif 1 in rowExistsList[0]:
-		print("Eh, no can do; date calculated already exists. Try again later.")
-
+		print("Eh, no can do; date calculated already exists for \"" + cityName + "\". Try again later.")
+		print("The latest update was at " + str(dateCalculated))
 
 # ================= CREATE ELEMENTS FOR GUI =================
 
