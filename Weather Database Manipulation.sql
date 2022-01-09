@@ -21,7 +21,7 @@ insert into weather_details(date_calculated, city_name)
 values('2022-01-07 15:46:33', 'conway');
 
 delete from weather_details
-where date_calculated='2022-01-07 18:31:37';
+where date_calculated='2022-01-08 17:07:46';
 
 create table weather_details(
     clouds						int,
