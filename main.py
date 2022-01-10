@@ -66,82 +66,54 @@ def saveButtonClicked():
 		mycursor.execute(insertDateAndCity)
 		db.commit()
 
-		# clouds	varchar(10),
-		try:
-			clouds = int(data['clouds']['all'])
-		except Exception:
-			print("API Call Error: No clouds.")
-		else:
-			insertClouds = "UPDATE weather_details " \
-						"SET clouds = '%s' WHERE date_calculated='%s' and city_name='%s';" % (clouds, dateCalculated, cityName)
-			mycursor.execute(insertClouds)
-			db.commit()
-
-			print("Clouds: \t\t\t\t" + str(clouds) + "%")
+		# clouds		varchar(10),
+		clouds = int(data['clouds']['all'])
+		insertClouds = "UPDATE weather_details " \
+					"SET clouds = '%s' WHERE date_calculated='%s' and city_name='%s';" % (clouds, dateCalculated, cityName)
+		mycursor.execute(insertClouds)
+		db.commit()
+		print("Clouds: \t\t\t\t" + str(clouds) + "%")
 
 		# humidity      varchar(20)
-		try:
-			humidity = data['main']['humidity']
-		except Exception:
-			print("API Call Error: No humidity.")
-		else:
-			insertTempMin = "UPDATE weather_details " \
-						"SET humidity = '%s' WHERE date_calculated='%s' and city_name='%s';" % (humidity, dateCalculated, cityName)
-			mycursor.execute(insertTempMin)
-			db.commit()
-			print("Humidity: \t\t\t\t" + str(humidity) + "%")
+		humidity = data['main']['humidity']
+		insertTempMin = "UPDATE weather_details " \
+					"SET humidity = '%s' WHERE date_calculated='%s' and city_name='%s';" % (humidity, dateCalculated, cityName)
+		mycursor.execute(insertTempMin)
+		db.commit()
+		print("Humidity: \t\t\t\t" + str(humidity) + "%")
 
 		# temp_min      float
-		try:
-			temp_min = data['main']['temp_min']
-		except Exception:
-			print("API Call Error: No minimum temperature.")
-		else:
-			# Save to database code here.
-			insertTempMin = "UPDATE weather_details " \
-						"SET temp_min = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp_min, dateCalculated, cityName)
-			mycursor.execute(insertTempMin)
-			db.commit()
-			print("Minimum temperature: \t" + str(temp_min) + " degrees fahrenheit")
+		temp_min = data['main']['temp_min']
+		insertTempMin = "UPDATE weather_details " \
+					"SET temp_min = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp_min, dateCalculated, cityName)
+		mycursor.execute(insertTempMin)
+		db.commit()
+		print("Minimum temperature: \t" + str(temp_min) + " degrees fahrenheit")
 
 		# temp_max      float
-		try:
-			temp_max = data['main']['temp_max']
-		except Exception:
-			print("API Call Error: No maximum temperature.")
-		else:
-			# Save to database code here.
-			insertTempMax = "UPDATE weather_details " \
-						"SET temp_max = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp_max, dateCalculated, cityName)
-			mycursor.execute(insertTempMax)
-			db.commit()
-			print("Maximum temperature: \t" + str(temp_max) + " degrees fahrenheit")
+		temp_max = data['main']['temp_max']
+		insertTempMax = "UPDATE weather_details " \
+					"SET temp_max = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp_max, dateCalculated, cityName)
+		mycursor.execute(insertTempMax)
+		db.commit()
+		print("Maximum temperature: \t" + str(temp_max) + " degrees fahrenheit")
 
 		# main_temp     float
-		try:
-			temp = data['main']['temp']
-		except Exception:
-			print("API Call Error: No maximum temperature.")
-		else:
-			# Save to database code here.
-			insertTemp = "UPDATE weather_details " \
-						"SET main_temp = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp, dateCalculated, cityName)
-			mycursor.execute(insertTemp)
-			db.commit()
-			print("Temperature: \t\t\t" + str(temp) + " degrees fahrenheit")
+		temp = data['main']['temp']
+		print("API Call Error: No maximum temperature.")
+		insertTemp = "UPDATE weather_details " \
+					"SET main_temp = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp, dateCalculated, cityName)
+		mycursor.execute(insertTemp)
+		db.commit()
+		print("Temperature: \t\t\t" + str(temp) + " degrees fahrenheit")
 
 		# feels_like	float
-		try:
-			feels_like = data['main']['feels_like']
-		except Exception:
-			print("API Call Error: No feels-like temperature.")
-		else:
-			# Save to database code here.
-			insertFeelsLike = "UPDATE weather_details " \
-						"SET feels_like = '%s' WHERE date_calculated='%s' and city_name='%s';" % (feels_like, dateCalculated, cityName)
-			mycursor.execute(insertFeelsLike)
-			db.commit()
-			print("Feels like: \t\t\t" + str(feels_like) + " degrees fahrenheit")
+		feels_like = data['main']['feels_like']
+		insertFeelsLike = "UPDATE weather_details " \
+					"SET feels_like = '%s' WHERE date_calculated='%s' and city_name='%s';" % (feels_like, dateCalculated, cityName)
+		mycursor.execute(insertFeelsLike)
+		db.commit()
+		print("Feels like: \t\t\t" + str(feels_like) + " degrees fahrenheit")
 
 		# wind_gust     float
 		try:
@@ -149,7 +121,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No wind gust measurement.")
 		else:
-			# Save to database code here.
 			insertWindGust = "UPDATE weather_details " \
 						"SET feels_like = '%s' WHERE date_calculated='%s' and city_name='%s';" % (gust, dateCalculated, cityName)
 			mycursor.execute(insertWindGust)
@@ -157,30 +128,20 @@ def saveButtonClicked():
 			print("Wind gust: \t\t\t\t" + str(gust) + " miles per hour")
 
 		# wind_speed    float
-		try:
-			speed = data['wind']['speed']
-		except Exception:
-			print("API Call Error: No wind speed measurement.")
-		else:
-			# Save to database code here.
-			insertWindSpeed = "UPDATE weather_details " \
-						"SET wind_speed = '%s' WHERE date_calculated='%s' and city_name='%s';" % (speed, dateCalculated, cityName)
-			mycursor.execute(insertWindSpeed)
-			db.commit()
-			print("Wind speed: \t\t\t" + str(speed) + " miles per hour")
+		speed = data['wind']['speed']
+		insertWindSpeed = "UPDATE weather_details " \
+					"SET wind_speed = '%s' WHERE date_calculated='%s' and city_name='%s';" % (speed, dateCalculated, cityName)
+		mycursor.execute(insertWindSpeed)
+		db.commit()
+		print("Wind speed: \t\t\t" + str(speed) + " miles per hour")
 
 		# wind_deg      int
-		try:
-			deg = data['wind']['deg']
-		except Exception:
-			print("API Call Error: No wind direction.")
-		else:
-			# Save to database code here.
-			insertWindDegree = "UPDATE weather_details " \
-						"SET wind_deg = '%s' WHERE date_calculated='%s' and city_name='%s';" % (deg, dateCalculated, cityName)
-			mycursor.execute(insertWindDegree)
-			db.commit()
-			print("Wind Degree: \t\t\t" + str(deg) + " meteorological degrees")
+		deg = data['wind']['deg']
+		insertWindDegree = "UPDATE weather_details " \
+					"SET wind_deg = '%s' WHERE date_calculated='%s' and city_name='%s';" % (deg, dateCalculated, cityName)
+		mycursor.execute(insertWindDegree)
+		db.commit()
+		print("Wind Degree: \t\t\t" + str(deg) + " meteorological degrees")
 
 		# rain_1h       float
 		try:
@@ -188,7 +149,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No recent 1 hour rain measurement.")
 		else:
-			# Save to database code here.
 			insertRain1h = "UPDATE weather_details " \
 						"SET rain_1h = '%s' WHERE date_calculated='%s' and city_name='%s';" % (rain_1h, dateCalculated, cityName)
 			mycursor.execute(insertRain1h)
@@ -201,7 +161,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No recent 3 hour rain measurement.")
 		else:
-			# Save to database code here.
 			insertRain3h = "UPDATE weather_details " \
 						"SET rain_3h = '%s' WHERE date_calculated='%s' and city_name='%s';" % (rain_3h, dateCalculated, cityName)
 			mycursor.execute(insertRain3h)
@@ -214,7 +173,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No recent 1 hour snow measurement.")
 		else:
-			# Save to database code here.
 			insertSnow1h = "UPDATE weather_details " \
 						"SET snow_1h = '%s' WHERE date_calculated='%s' and city_name='%s';" % (snow_1h, dateCalculated, cityName)
 			mycursor.execute(insertSnow1h)
@@ -227,7 +185,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No recent 3 hour snow measurement.")
 		else:
-			# Save to database code here.
 			insertSnow3h = "UPDATE weather_details " \
 						"SET snow_3h = '%s' WHERE date_calculated='%s' and city_name='%s';" % (snow_3h, dateCalculated, cityName)
 			mycursor.execute(insertSnow3h)
@@ -235,148 +192,92 @@ def saveButtonClicked():
 			print("Snow 3h: \t\t\t\t" + str(snow_3h) + " mm")
 
 		# weather_description       varchar(20)
-		try:
-			description = data['weather'][0]['description']
-		except Exception:
-			print("API Call Error: No weather description.")
-		else:
-			# Save to database code here.
-			insertWeatherDescription = "UPDATE weather_details " \
-						"SET weather_description = '%s' WHERE date_calculated='%s' and city_name='%s';" % (description, dateCalculated, cityName)
-			mycursor.execute(insertWeatherDescription)
-			db.commit()
-			print("Weather Description: \t" + str(description))
+		description = data['weather'][0]['description']
+		insertWeatherDescription = "UPDATE weather_details " \
+					"SET weather_description = '%s' WHERE date_calculated='%s' and city_name='%s';" % (description, dateCalculated, cityName)
+		mycursor.execute(insertWeatherDescription)
+		db.commit()
+		print("Weather Description: \t" + str(description))
 
 		# weather_icon				varchar(5)
-		try:
-			icon = data['weather'][0]['icon']
-		except Exception:
-			print("API Call Error: No weather icon.")
-		else:
-			# Save to database code here.
-			insertWeatherIcon = "UPDATE weather_details " \
-						"SET weather_icon = '%s' WHERE date_calculated='%s' and city_name='%s';" % (icon, dateCalculated, cityName)
-			mycursor.execute(insertWeatherIcon)
-			db.commit()
-			print("Weather icon: \t\t\t" + str(icon))
+		icon = data['weather'][0]['icon']
+		insertWeatherIcon = "UPDATE weather_details " \
+					"SET weather_icon = '%s' WHERE date_calculated='%s' and city_name='%s';" % (icon, dateCalculated, cityName)
+		mycursor.execute(insertWeatherIcon)
+		db.commit()
+		print("Weather icon: \t\t\t" + str(icon))
 
 		# weather_main				varchar(20)
-		try:
-			main = data['weather'][0]['main']
-		except Exception:
-			print("API Call Error: No weather main.")
-		else:
-			# Save to database code here.
-			insertWeatherMain = "UPDATE weather_details " \
-						"SET weather_main = '%s' WHERE date_calculated='%s' and city_name='%s';" % (main, dateCalculated, cityName)
-			mycursor.execute(insertWeatherMain)
-			db.commit()
-			print("Weather Main: \t\t\t" + str(main))
+		main = data['weather'][0]['main']
+		insertWeatherMain = "UPDATE weather_details " \
+					"SET weather_main = '%s' WHERE date_calculated='%s' and city_name='%s';" % (main, dateCalculated, cityName)
+		mycursor.execute(insertWeatherMain)
+		db.commit()
+		print("Weather Main: \t\t\t" + str(main))
 
 		# city_ID					varchar(20)
-		try:
-			city_ID = data['id']
-		except Exception:
-			print("API Call Error: No city id.")
-		else:
-			# Save to database code here.
-			insertWeatherMain = "UPDATE weather_details " \
-						"SET city_ID = '%s' WHERE date_calculated='%s' and city_name='%s';" % (city_ID, dateCalculated, cityName)
-			mycursor.execute(insertWeatherMain)
-			db.commit()
-			print("City ID: \t\t\t\t" + str(city_ID))
-
+		city_ID = data['id']
+		insertWeatherMain = "UPDATE weather_details " \
+					"SET city_ID = '%s' WHERE date_calculated='%s' and city_name='%s';" % (city_ID, dateCalculated, cityName)
+		mycursor.execute(insertWeatherMain)
+		db.commit()
+		print("City ID: \t\t\t\t" + str(city_ID))
 
 		# timezone		int
-		try:
-			timezone = data['timezone']
-		except Exception:
-			print("API Call Error: No timezone.")
-		else:
-			# Save to database code here.
-			insertSunrise = "UPDATE weather_details " \
-						"SET timezone = '%s' WHERE date_calculated='%s' and city_name='%s';" % (timezone, dateCalculated, cityName)
-			mycursor.execute(insertSunrise)
-			db.commit()
-			print("Timezone: \t\t\t\t" + str(timezone))
+		timezone = data['timezone']
+		insertSunrise = "UPDATE weather_details " \
+					"SET timezone = '%s' WHERE date_calculated='%s' and city_name='%s';" % (timezone, dateCalculated, cityName)
+		mycursor.execute(insertSunrise)
+		db.commit()
+		print("Timezone: \t\t\t\t" + str(timezone))
 
 		# latitude		float
-		try:
-			latitude = data['coord']['lat']
-		except Exception:
-			print("API Call Error: No latitude.")
-		else:
-			# Save to database code here.
-			insertSunrise = "UPDATE weather_details " \
-						"SET latitude = '%s' WHERE date_calculated='%s' and city_name='%s';" % (latitude, dateCalculated, cityName)
-			mycursor.execute(insertSunrise)
-			db.commit()
-			print("Latitude: \t\t\t\t" + str(latitude))
+		latitude = data['coord']['lat']
+		insertSunrise = "UPDATE weather_details " \
+					"SET latitude = '%s' WHERE date_calculated='%s' and city_name='%s';" % (latitude, dateCalculated, cityName)
+		mycursor.execute(insertSunrise)
+		db.commit()
+		print("Latitude: \t\t\t\t" + str(latitude))
 
 		# longitude		float
-		try:
-			longitude = data['coord']['lon']
-		except Exception:
-			print("API Call Error: No longitude.")
-		else:
-			# Save to database code here.
-			insertSunrise = "UPDATE weather_details " \
-						"SET longitude = '%s' WHERE date_calculated='%s' and city_name='%s';" % (longitude, dateCalculated, cityName)
-			mycursor.execute(insertSunrise)
-			db.commit()
-			print("Longitude: \t\t\t\t" + str(longitude))
+		longitude = data['coord']['lon']
+		insertSunrise = "UPDATE weather_details " \
+					"SET longitude = '%s' WHERE date_calculated='%s' and city_name='%s';" % (longitude, dateCalculated, cityName)
+		mycursor.execute(insertSunrise)
+		db.commit()
+		print("Longitude: \t\t\t\t" + str(longitude))
 
 		# sunrise		varchar(20)
-		try:
-			sunrise = data['sys']['sunrise']
-		except Exception:
-			print("API Call Error: No sunrise.")
-		else:
-			# Save to database code here.
-			insertSunrise = "UPDATE weather_details " \
-						"SET sunrise = '%s' WHERE date_calculated='%s' and city_name='%s';" % (sunrise, dateCalculated, cityName)
-			mycursor.execute(insertSunrise)
-			db.commit()
-			print("Sunrise: \t\t\t\t" + str(sunrise))
+		sunrise = data['sys']['sunrise']
+		insertSunrise = "UPDATE weather_details " \
+					"SET sunrise = '%s' WHERE date_calculated='%s' and city_name='%s';" % (sunrise, dateCalculated, cityName)
+		mycursor.execute(insertSunrise)
+		db.commit()
+		print("Sunrise: \t\t\t\t" + str(sunrise))
 
 		# sunset		varchar(20)
-		try:
-			sunset = data['sys']['sunset']
-		except Exception:
-			print("API Call Error: No sunset.")
-		else:
-			# Save to database code here.
-			insertSunset = "UPDATE weather_details " \
-						"SET sunset = '%s' WHERE date_calculated='%s' and city_name='%s';" % (sunset, dateCalculated, cityName)
-			mycursor.execute(insertSunset)
-			db.commit()
-			print("Sunset: \t\t\t\t" + str(sunset))
+		sunset = data['sys']['sunset']
+		insertSunset = "UPDATE weather_details " \
+					"SET sunset = '%s' WHERE date_calculated='%s' and city_name='%s';" % (sunset, dateCalculated, cityName)
+		mycursor.execute(insertSunset)
+		db.commit()
+		print("Sunset: \t\t\t\t" + str(sunset))
 
 		# country		varchar(30)
-		try:
-			country = data['sys']['country']
-		except Exception:
-			print("API Call Error: No country.")
-		else:
-			# Save to database code here.
-			insertPressure = "UPDATE weather_details " \
-						"SET country = '%s' WHERE date_calculated='%s' and city_name='%s';" % (country, dateCalculated, cityName)
-			mycursor.execute(insertPressure)
-			db.commit()
-			print("Country: \t\t\t\t" + str(country))
+		country = data['sys']['country']
+		insertPressure = "UPDATE weather_details " \
+					"SET country = '%s' WHERE date_calculated='%s' and city_name='%s';" % (country, dateCalculated, cityName)
+		mycursor.execute(insertPressure)
+		db.commit()
+		print("Country: \t\t\t\t" + str(country))
 
 		# main_pressure	int
-		try:
-			pressure = data['main']['pressure']
-		except Exception:
-			print("API Call Error: No pressure.")
-		else:
-			# Save to database code here.
-			insertPressure = "UPDATE weather_details " \
-						"SET main_pressure = '%s' WHERE date_calculated='%s' and city_name='%s';" % (pressure, dateCalculated, cityName)
-			mycursor.execute(insertPressure)
-			db.commit()
-			print("Pressure: \t\t\t\t" + str(pressure))
+		pressure = data['main']['pressure']
+		insertPressure = "UPDATE weather_details " \
+					"SET main_pressure = '%s' WHERE date_calculated='%s' and city_name='%s';" % (pressure, dateCalculated, cityName)
+		mycursor.execute(insertPressure)
+		db.commit()
+		print("Pressure: \t\t\t\t" + str(pressure))
 
 		# grnd_level	int
 		try:
@@ -384,7 +285,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No grnd_level pressure.")
 		else:
-			# Save to database code here.
 			insertGroundLevel = "UPDATE weather_details " \
 						"SET grnd_level = '%s' WHERE date_calculated='%s' and city_name='%s';" % (grnd_level, dateCalculated, cityName)
 			mycursor.execute(insertGroundLevel)
@@ -397,7 +297,6 @@ def saveButtonClicked():
 		except Exception:
 			print("API Call Error: No sea_level pressure.")
 		else:
-			# Save to database code here.
 			insertSeaLevel = "UPDATE weather_details " \
 						"SET sea_level = '%s' WHERE date_calculated='%s' and city_name='%s';" % (sea_level, dateCalculated, cityName)
 			mycursor.execute(insertSeaLevel)
@@ -409,6 +308,7 @@ def saveButtonClicked():
 		print()
 		print("Eh, no can do; date calculated already exists for \"" + cityName + "\". Try again later.")
 		print("The latest update was at " + str(dateCalculated))
+
 
 # ================= CREATE ELEMENTS FOR GUI =================
 

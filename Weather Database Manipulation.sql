@@ -23,6 +23,9 @@ values('2022-01-07 15:46:33', 'conway');
 delete from weather_details
 where date_calculated='2022-01-08 17:07:46';
 
+delete from weather_details
+where city_name='Conway';
+
 create table weather_details(
     clouds						int,
     humidity					int,
