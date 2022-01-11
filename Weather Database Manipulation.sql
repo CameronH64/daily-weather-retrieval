@@ -9,8 +9,6 @@ use weather_database;
 drop database weather_database;
 drop table weather_details;
 
-select * from weather_details;
-
 SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='2022-01-07 16:16:49');
 SELECT EXISTS(SELECT * FROM weather_details WHERE date_calculated='2022-01-07 16:16:49' and city_name='conway');
 
@@ -25,6 +23,8 @@ where date_calculated='2022-01-08 17:07:46';
 
 delete from weather_details
 where city_name='Conway';
+
+select * from weather_details;
 
 create table weather_details(
     clouds						int,
