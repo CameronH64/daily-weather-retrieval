@@ -19,7 +19,7 @@ insert into weather_details(date_calculated, city_name)
 values('2022-01-07 15:46:33', 'conway');
 
 delete from weather_details
-where date_calculated='2022-01-08 17:07:46';
+where date_calculated='2022-01-11 18:22:00';
 
 delete from weather_details
 where city_name='Conway';

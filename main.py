@@ -29,20 +29,57 @@ root.resizable(False, False)         # (x, y)
 root.title("Daily Weather Retrieval Tool")
 
 
-def doAPICall(cityName):
+def doCityAPICall(cityName):
 
 	# Do Open Weather Map API call.
 	callString = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=imperial".format(cityName, os.getenv("APIKey"))
 	requestReturn = requests.get(callString)
 
+	print(searchChoices.get())
+	return requestReturn.json()
+
+# WIP
+def doCityAndStateCodeAPICall(cityName, stateID):
+
+	# Do Open Weather Map API call.
+	callString = "https://api.openweathermap.org/data/2.5/weather?q={},{}&appid={}&units=imperial".format(cityName, stateID, os.getenv("APIKey"))
+	requestReturn = requests.get(callString)
+
+	print(searchChoices.get())
+	return requestReturn.json()
+
+
+# WIP
+def doCoordinatesAPICall(latitude, longitude):
+
+	# Do Open Weather Map API call.
+	callString = "api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}".format(latitude, longitude, os.getenv("APIKey"))
+	requestReturn = requests.get(callString)
+
+	print(searchChoices.get())
 	return requestReturn.json()
 
 
 def saveButtonClicked():
 
-	# Do the API call
-	cityName = searchEntry.get()
-	data = doAPICall(cityName)
+	# First, need to determine what the search choice is, via radio buttons.
+
+	if searchChoices.get() == 1:
+		# Do the city API call
+		cityName = searchEntry.get()
+		data = doCityAPICall(cityName)
+
+	elif searchChoices.get() == 2:
+		# Do the city and state ID API call
+		cityName = searchEntry.get()
+		data = doCityAPICall(cityName)
+
+	elif searchChoices.get() == 2:
+		# Do the coordinates API call
+		latitude = 40.0
+		longitude = 40.0
+		data = doCoordinatesAPICall(latitude, longitude)
+
 
 	# Convert the time calculated.
 	dt = data['dt']
@@ -325,27 +362,16 @@ searchButton = Button(root, text="Save to Database", command=lambda: saveButtonC
 searchButton.grid(row=1, column=1)
 
 # Search radio buttons
-# searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-# searchChoices.set(1)            # Set the default value of the group of radio buttons.
-#
-# Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=2, column=1, sticky=W)
-# Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=3, column=1, sticky=W)
-# Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=4, column=1, sticky=W)
+searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
+searchChoices.set(1)            # Set the default value of the group of radio buttons.
+
+Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=3, column=1, sticky=W)
+Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=4, column=1, sticky=W)
+Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=5, column=1, sticky=W)
 # Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
 
-
-# Temperature units choice label
-# temperatureUnits = Label(root, text="Temperature Units:")
-# temperatureUnits.grid(row=6, column=1)
-
-
-# Temperature radio buttons
-
-# temperatureUnits = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-# temperatureUnits.set(1)            # Set the default value of the group of radio buttons.
-#
-# Radiobutton(root, text="Fahrenheit",                variable=temperatureUnits, value=1).grid(row=7, column=1, sticky=W)      # (Offset so it's easier to see).
-# Radiobutton(root, text="Celsius",                   variable=temperatureUnits, value=2).grid(row=8, column=1, sticky=W)
+radioButtonCategoryLabel = Label(root, text="Mode: ")
+radioButtonCategoryLabel.grid(row=2, column=1, sticky=W)
 
 
 # ===================== END CREATE ELEMENTS FOR GUI; START CODE=====================
