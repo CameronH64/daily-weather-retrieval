@@ -22,7 +22,10 @@ delete from weather_details
 where date_calculated='2022-01-11 18:22:00';
 
 delete from weather_details
-where city_name='Conway';
+where city_name='Little Rock';
+
+delete from weather_details
+where weather_main='Clear';
 
 select * from weather_details;
 
