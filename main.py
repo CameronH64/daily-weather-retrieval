@@ -627,7 +627,7 @@ def recall():
 	mycursor.execute(recallQuery)
 
 	for (clouds, main_temp, city_name) in mycursor:
-		print("Clouds: {}, Main Temp: {}, City Name: {}".format(clouds, main_temp, city_name))
+		print("Clouds: {}, Main Temp: {} degrees fahrenheit, City Name: {}".format(clouds, main_temp, city_name))
 
 def userInput(command):
 
