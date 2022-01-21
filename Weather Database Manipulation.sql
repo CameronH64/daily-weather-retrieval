@@ -25,7 +25,10 @@ delete from weather_details
 where city_name='Little Rock';
 
 delete from weather_details
-where weather_main='Clouds';
+where weather_main='Clear';
+
+delete from weather_details
+where timezone='-21600';
 
 select * from weather_details;
 

@@ -654,9 +654,13 @@ def recall():
 
 	mycursor.execute(recallQuery)
 
+	# Counter for keeping track of rows.
+	i = 0
+
 	for (clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
 		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
 		 country, main_pressure, grnd_level, sea_level) in mycursor:
+		print("Row Number: " + str(i := i + 1))
 		print("Clouds: {}\n"
 			  "Humidity: {}\n"
 			  "Minimum Temperature: {}\n"
@@ -687,6 +691,7 @@ def recall():
 			  "Sea Level: {}\n".format(clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
 		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
 		 country, main_pressure, grnd_level, sea_level))
+
 	print()
 
 def userInput(command):
