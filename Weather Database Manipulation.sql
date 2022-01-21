@@ -25,7 +25,7 @@ delete from weather_details
 where city_name='Little Rock';
 
 delete from weather_details
-where weather_main='Clear';
+where weather_main='Clouds';
 
 select * from weather_details;
 

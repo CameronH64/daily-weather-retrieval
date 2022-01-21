@@ -622,12 +622,72 @@ def saveCityButton(cityName):
 
 def recall():
 	print("Recalled rows: \n")
-	recallQuery = "SELECT clouds, main_temp, city_name FROM weather_details"
+	recallQuery = "SELECT clouds, " \
+				  "humidity, " \
+				  "temp_min, " \
+				  "temp_max, " \
+				  "main_temp, " \
+				  "feels_like, " \
+				  "wind_gust, " \
+				  "wind_speed, " \
+				  "wind_deg, " \
+				  "rain_1h, " \
+				  "rain_3h, " \
+				  "snow_1h, " \
+				  "snow_3h, " \
+				  "weather_description, " \
+				  "weather_icon, " \
+				  "weather_main, " \
+				  "city_ID, " \
+				  "city_name, " \
+				  "date_calculated, " \
+				  "timezone, " \
+				  "latitude, " \
+				  "longitude, " \
+				  "sunrise, " \
+				  "sunset, " \
+				  "country, " \
+				  "main_pressure, " \
+				  "grnd_level, " \
+				  "sea_level " \
+				  "FROM weather_details"
 
 	mycursor.execute(recallQuery)
 
-	for (clouds, main_temp, city_name) in mycursor:
-		print("Clouds: {}, Main Temp: {} degrees fahrenheit, City Name: {}".format(clouds, main_temp, city_name))
+	for (clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
+		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
+		 country, main_pressure, grnd_level, sea_level) in mycursor:
+		print("Clouds: {}\n"
+			  "Humidity: {}\n"
+			  "Minimum Temperature: {}\n"
+			  "Maximum Temperature: {}\n"
+			  "Main Temperature: {} degrees fahrenheit\n"
+			  "Feels like: {}\n"
+			  "Wind Gust: {}\n"
+			  "Wind Speed: {}\n"
+			  "Wind Degrees: {}\n"
+			  "Rain 1h: {}\n"
+			  "Rain 3h: {}\n"
+			  "Snow 1h: {}\n"
+			  "Snow 3h: {}\n"
+			  "Weather Description: {}\n"
+			  "Weather Icon: {}\n"
+			  "Weather Main: {}\n"
+			  "City ID: {}\n"
+			  "City Name: {}\n"
+			  "Date Calculated: {}\n"
+			  "Timezone: {}\n"
+			  "Latitude: {}\n"
+			  "Longitude: {}\n"
+			  "Sunrise: {}\n"
+			  "Sunset: {}\n"
+			  "Country: {}\n"
+			  "Main Pressure: {}\n"
+			  "Ground Level: {}\n"
+			  "Sea Level: {}\n".format(clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
+		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
+		 country, main_pressure, grnd_level, sea_level))
+	print()
 
 def userInput(command):
 
