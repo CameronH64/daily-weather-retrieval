@@ -106,12 +106,11 @@ def saveToDatabase(data):
 
 		# main_temp     float
 		temp = data['main']['temp']
-		print("API Call Error: No maximum temperature.")
 		insertTemp = "UPDATE weather_details " \
 					"SET main_temp = '%s' WHERE date_calculated='%s' and city_name='%s';" % (temp, dateCalculated, cityName)
 		mycursor.execute(insertTemp)
 		db.commit()
-		print("Temperature: \t\t\t" + str(temp) + " degrees fahrenheit")
+		print("Main Temperature: \t\t" + str(temp) + " degrees fahrenheit")
 
 		# feels_like	float
 		feels_like = data['main']['feels_like']
@@ -365,6 +364,76 @@ def recall():
 
 	print()
 
+def export():
+	print("Recalled rows: \n")
+	recallQuery = "SELECT clouds, " \
+				  "humidity, " \
+				  "temp_min, " \
+				  "temp_max, " \
+				  "main_temp, " \
+				  "feels_like, " \
+				  "wind_gust, " \
+				  "wind_speed, " \
+				  "wind_deg, " \
+				  "rain_1h, " \
+				  "rain_3h, " \
+				  "snow_1h, " \
+				  "snow_3h, " \
+				  "weather_description, " \
+				  "weather_icon, " \
+				  "weather_main, " \
+				  "city_ID, " \
+				  "city_name, " \
+				  "date_calculated, " \
+				  "timezone, " \
+				  "latitude, " \
+				  "longitude, " \
+				  "sunrise, " \
+				  "sunset, " \
+				  "country, " \
+				  "main_pressure " \
+				  "FROM weather_details"
+
+	mycursor.execute(recallQuery)
+
+	# Counter for keeping track of rows.
+	i = 0
+
+	for (clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
+		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
+		 country, main_pressure) in mycursor:
+		print("Row Number: " + str(i := i + 1))
+		print("Clouds: {}\n"
+			  "Humidity: {}\n"
+			  "Minimum Temperature: {}\n"
+			  "Maximum Temperature: {}\n"
+			  "Main Temperature: {} degrees fahrenheit\n"
+			  "Feels like: {}\n"
+			  "Wind Gust: {}\n"
+			  "Wind Speed: {}\n"
+			  "Wind Degrees: {}\n"
+			  "Rain 1h: {}\n"
+			  "Rain 3h: {}\n"
+			  "Snow 1h: {}\n"
+			  "Snow 3h: {}\n"
+			  "Weather Description: {}\n"
+			  "Weather Icon: {}\n"
+			  "Weather Main: {}\n"
+			  "City ID: {}\n"
+			  "City Name: {}\n"
+			  "Date Calculated: {}\n"
+			  "Timezone: {}\n"
+			  "Latitude: {}\n"
+			  "Longitude: {}\n"
+			  "Sunrise: {}\n"
+			  "Sunset: {}\n"
+			  "Country: {}\n"
+			  "Main Pressure: {}\n".format(clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
+		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
+		 country, main_pressure))
+
+	print()
+
 def userInput(command):
 
 	if command == "save city":
@@ -380,9 +449,11 @@ def userInput(command):
 		data = returnJSONforCoordinates(latitude, longitude)
 		saveToDatabase(data)
 
-
 	elif command == "recall":
 		recall()
+
+	elif command == "export":
+		export()		# As of now, just a duplicate of recall().
 
 	elif command == "exit":
 		sys.exit()
