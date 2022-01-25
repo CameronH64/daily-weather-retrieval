@@ -21,15 +21,6 @@ values('2022-01-07 15:46:33', 'conway');
 delete from weather_details
 where date_calculated='2022-01-11 18:22:00';
 
-delete from weather_details
-where city_name='Little Rock';
-
-delete from weather_details
-where weather_main='Clear';
-
-delete from weather_details
-where timezone='-21600';
-
 select * from weather_details;
 
 create table weather_details(
@@ -61,9 +52,7 @@ create table weather_details(
     sunrise     				int,	/* Convert from UNIX */
     sunset	     				int,	/* Convert from UNIX */
     country						varchar(50),
-    main_pressure				int,
-    grnd_level					int,
-    sea_level					int
+    main_pressure				int
 );
 
 ALTER TABLE weather_details
