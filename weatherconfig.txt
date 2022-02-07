@@ -1,0 +1,16 @@
+# Lines that start with a pound sign are considered comments.
+
+# Below, enter the call code you want to use to call weather data.
+# Possible codes:
+# 0001: City and State
+# 0002: Coordinates
+callCode:
+0001
+
+# City names and states go directly below call code 0001.
+0001:
+Conway, Arkansas
+
+# Coordinates go directly below here below call code 0002.
+# 40.0, 40,0
+0002:

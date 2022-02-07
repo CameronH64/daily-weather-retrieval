@@ -1,0 +1,6 @@
+# Lines that start with a pound sign are considered comments.
+# This is the weather log for this program.
+# Date, time, and location used to call data will be listed here.
+# Example log entry:
+# [2022-01-07 15:46:33][0001] Conway, Arkansas
+# [2021-04-24 20:23:12][0002][40.0, 40.0] Greenbrier, Arkansas
