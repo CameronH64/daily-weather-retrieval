@@ -1,23 +1,15 @@
 # Description of Program
 
-This program will have a simple, intuitive GUI that will search for the current weather in user-specified locations. This program will also be able to save that weather data into a local MySQL database.
+This program is a Windows service that will automatically call and store weather data at a user defined time.
 
-There are plans to make this an optionally automated program to store weather data as time passes. This feature will be implemented once the main program is complete.
+# Planned Automation Features
 
-# Main GUI Program Features
-
-- A basic, but intuitive and robust GUI.
-- Let user choose specific parameters to search and record weather data from.
-- Store a weather API call in a relational database.
-
-# Planned Program Automation Features
-
-- Start automatically on computer startup, without user interference.
-- Work in the background, without user interference.
+- Start automatically on startup, without input.
+- Work in the background, without user input.
 - Let user choose weather data location(s).
 - Let user choose weather data retrieval time.
 - Let user choose weather data retrieval frequency.
-- Store this data reliably into a local MySQL relationsal database at each API call.
+- Store this data into a local MySQL relationsal database at each API call.
 
 # Installation Instructions for Development
 
