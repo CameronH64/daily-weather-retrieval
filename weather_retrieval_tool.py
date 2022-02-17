@@ -14,20 +14,9 @@ from dotenv import load_dotenv      # Used to store the API key
 import os                   # Used to access environmental variables, and my API key.
 import pprint               # Simply prints out .json output in a much neater format.
 import mysql.connector      # Used to run SQL commands in Python
-from tkinter import *
-# from PIL import ImageTk, Image
 import datetime
 import sys
 
-
-# dotenv, for environment variables and protection of API key.
-load_dotenv()
-
-# Set up the Tkinter window.
-root = Tk()
-root.geometry("360x300+1400+600")
-root.resizable(False, False)         # (x, y)
-root.title("Daily Weather Retrieval Tool")
 
 # All API Calls (Used within saveToDatabase)
 def returnJSONforCityName(cityName):
@@ -364,76 +353,6 @@ def recall():
 
 	print()
 
-def export():
-	print("Recalled rows: \n")
-	recallQuery = "SELECT clouds, " \
-				  "humidity, " \
-				  "temp_min, " \
-				  "temp_max, " \
-				  "main_temp, " \
-				  "feels_like, " \
-				  "wind_gust, " \
-				  "wind_speed, " \
-				  "wind_deg, " \
-				  "rain_1h, " \
-				  "rain_3h, " \
-				  "snow_1h, " \
-				  "snow_3h, " \
-				  "weather_description, " \
-				  "weather_icon, " \
-				  "weather_main, " \
-				  "city_ID, " \
-				  "city_name, " \
-				  "date_calculated, " \
-				  "timezone, " \
-				  "latitude, " \
-				  "longitude, " \
-				  "sunrise, " \
-				  "sunset, " \
-				  "country, " \
-				  "main_pressure " \
-				  "FROM weather_details"
-
-	mycursor.execute(recallQuery)
-
-	# Counter for keeping track of rows.
-	i = 0
-
-	for (clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
-		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
-		 country, main_pressure) in mycursor:
-		print("Row Number: " + str(i := i + 1))
-		print("Clouds: {}\n"
-			  "Humidity: {}\n"
-			  "Minimum Temperature: {}\n"
-			  "Maximum Temperature: {}\n"
-			  "Main Temperature: {} degrees fahrenheit\n"
-			  "Feels like: {}\n"
-			  "Wind Gust: {}\n"
-			  "Wind Speed: {}\n"
-			  "Wind Degrees: {}\n"
-			  "Rain 1h: {}\n"
-			  "Rain 3h: {}\n"
-			  "Snow 1h: {}\n"
-			  "Snow 3h: {}\n"
-			  "Weather Description: {}\n"
-			  "Weather Icon: {}\n"
-			  "Weather Main: {}\n"
-			  "City ID: {}\n"
-			  "City Name: {}\n"
-			  "Date Calculated: {}\n"
-			  "Timezone: {}\n"
-			  "Latitude: {}\n"
-			  "Longitude: {}\n"
-			  "Sunrise: {}\n"
-			  "Sunset: {}\n"
-			  "Country: {}\n"
-			  "Main Pressure: {}\n".format(clouds, humidity, temp_min, temp_max, main_temp, feels_like, wind_gust, wind_speed, wind_deg, rain_1h, rain_3h, snow_1h, snow_3h,
-		 weather_description, weather_icon, weather_main, city_ID, city_name, date_calculated, timezone, latitude, longitude, sunrise, sunset,
-		 country, main_pressure))
-
-	print()
-
 def userInput(command):
 
 	if command == "save city":
@@ -452,63 +371,8 @@ def userInput(command):
 	elif command == "recall":
 		recall()
 
-	elif command == "export":
-		export()		# As of now, just a duplicate of recall().
-
 	elif command == "exit":
 		sys.exit()
-
-# ================= CREATE ELEMENTS FOR GUI =================
-
-# Search box
-searchEntry = Entry(root, width=30)
-searchEntry.grid(row=1, column=0)
-
-# API call return box
-# output = Label(root, text="Weather API call goes here.")
-# output.grid(row=2, column=0)
-
-# Search button
-# searchButton = Button(root, text="Save to Database", command=lambda: saveButtonClicked())
-# searchButton.grid(row=1, column=1)
-
-# Search radio buttons
-searchChoices = IntVar()        # This function allows Tkinter to keep track of changes over time to this variable. More special than a standard Python variable.
-searchChoices.set(1)            # Set the default value of the group of radio buttons.
-
-Radiobutton(root, text="City",                      variable=searchChoices, value=1).grid(row=3, column=1, sticky=W)
-Radiobutton(root, text="City ID",                   variable=searchChoices, value=2).grid(row=4, column=1, sticky=W)
-Radiobutton(root, text="Geographic\nCoordinates",   variable=searchChoices, value=3).grid(row=5, column=1, sticky=W)
-# Radiobutton(root, text="ZIP Code",                  variable=searchChoices, value=4).grid(row=5, column=1, sticky=W)
-
-radioButtonCategoryLabel = Label(root, text="Mode: ")
-radioButtonCategoryLabel.grid(row=2, column=1, sticky=W)
-
-
-# ===================== END CREATE ELEMENTS FOR GUI; START CODE=====================
-
-# MySQL connector setup
-db = mysql.connector.connect(
-
-	host="localhost",
-	user="root",
-	password=os.getenv("rootPassword"),
-
-	# Can I check database here? Do testing later...
-	database="weather_database"
-
-)
-
-# Create the cursor for executing SQL commands.
-mycursor = db.cursor()
-
-
-
-# Instead of making GUI now, focus command line interface.
-
-while True:
-	userCommand = input("Enter a command: ")
-	userInput(userCommand)
 
 
 # root.mainloop()
