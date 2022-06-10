@@ -9,7 +9,7 @@ This program is a Windows service that will automatically call and store weather
 - Let user choose weather data location(s).
 - Let user choose weather data retrieval time.
 - Let user choose weather data retrieval frequency.
-- Store this data into a local MySQL relationsal database at each API call.
+- Store this data into a local MySQL relational database at each API call.
 
 # Installation Instructions for Development
 
